@@ -1,0 +1,220 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Header tests >> Verify that all the elements are clickable in the header top section
+- Location: D:\gogomotor\tests\header\headerTest.spec.ts:17:9
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toHaveURL(expected)
+
+Locator: locator(':root')
+Expected string: "https://liveuat.gogomotor.com/en/wishlist"
+Received string: "https://liveuat.gogomotor.com/en"
+Call log:
+  - expect.toHaveURL with timeout 5000ms
+  - waiting for locator(':root')
+    9 × locator resolved to <html dir="ltr" lang="en" translate="no">…</html>
+      - unexpected value "https://liveuat.gogomotor.com/en"
+
+    at HeaderPage.verifyClickFunctionality (D:\gogomotor\pages\headerPage.ts:60:33)
+    at D:\gogomotor\tests\header\headerTest.spec.ts:18:9
+```
+
+# Page snapshot
+
+```yaml
+- banner:
+  - text: Your browser does not support the video tag.
+  - link "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia":
+    - img "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia"
+  - button "Riyadh":
+    - img
+    - text: Riyadh
+    - img
+  - button "wishlist":
+    - text: Save
+    - img
+  - button "login":
+    - img
+    - text: Login
+  - img "icon"
+  - text: عربى
+  - navigation "Global": New Cars Buy & Sell Used Cars Deals Services
+- main:
+  - figure:
+    - img "Upcoming Hyundai Kona Expected launch Dec 2025"
+    - paragraph: Upcoming Hyundai Kona
+    - text: Expected launch Dec 2025
+    - link "Get Notified":
+      - text: Get Notified
+      - img
+  - figure:
+    - img "Latest Hyundai Tucson Starting from SAR 107,985"
+    - paragraph: Latest Hyundai Tucson
+    - text: Starting from SAR 107,985
+    - link "Explore":
+      - text: Explore
+      - img
+  - figure:
+    - img "Sell your car effortlessly List in 4 easy steps"
+    - paragraph: Sell your car effortlessly
+    - text: List in 4 easy steps
+    - link "List now":
+      - text: List now
+      - img
+  - figure:
+    - img "Find your dream car"
+    - paragraph: Find your dream car
+    - link "Find":
+      - text: Find
+      - img
+  - button "swiperplay":
+    - img
+  - heading "Find your dream car" [level=1]
+  - img "new-cars"
+  - paragraph: New cars
+  - img "used-cars"
+  - paragraph: Used Cars
+  - text: Price range
+  - img
+  - text: Select
+  - img
+  - textbox "Search Cars, Brand, Body Type"
+  - button "Search"
+  - link "TOYOTA":
+    - img "TOYOTA"
+  - link "HYUNDAI":
+    - img "HYUNDAI"
+  - link "NISSAN":
+    - img "NISSAN"
+  - link "KIA":
+    - img "KIA"
+  - link "CHEVROLET":
+    - img "CHEVROLET"
+  - link "FORD":
+    - img "FORD"
+  - link "HONDA":
+    - img "HONDA"
+  - link "GMC":
+    - img "GMC"
+  - link "ABARTH":
+    - img "ABARTH"
+  - link "See all"
+  - heading "Calculate your car budgeting" [level=2]
+  - text: Set the EMI you can pay - 500 
+  - textbox "0,000": 1,800
+  - text: + 500 Duration in years 1 2 3 4 5
+  - img
+  - text: Additional details  Profit rate 5% 
+  - slider
+  - text: 1% 25% Insurance 2.5% 
+  - slider
+  - text: 1% 25% Admin Fee 1% 
+  - slider
+  - text: 1% 25%
+  - button "Update"
+- region "Notifications Alt+T"
+- alert
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from "@playwright/test";
+   2 | import path from "path";
+   3 |
+   4 | export class HeaderPage {
+   5 |     private page: Page;
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         this.page = page;
+   9 |     }
+  10 |
+  11 |     // Selectors
+  12 |
+  13 |     private logoicon = () => this.page.getByRole("link", { name: /GoGo Motor - Buy and Sell/i });
+  14 |     private languageSelector = () => this.page.getByRole("button", { name: "Riyadh" });
+  15 |     private wishListicon = () => this.page.getByRole("button", { name: "wishlist" });
+  16 |     private loginicon = () => this.page.getByRole("button", { name: "login" });
+  17 |     private loginclosebtn = () => this.page.locator('#back-btn-wrapper div').getByRole('img')
+  18 |     //private arabicicon = () => this.page.getByRole("img", { name: "icon" });
+  19 |     private newcars = () => this.page.getByRole('navigation').getByText('New Cars');
+  20 |     private buysellcars = () => this.page.getByRole('navigation').getByText('Buy & Sell Used Cars');
+  21 |     private deals = () => this.page.getByRole('navigation').getByText('Deals', { exact: true });
+  22 |     private services = () => this.page.getByRole('navigation').getByText('Services')
+  23 |
+  24 |         ;
+  25 |
+  26 |     // Navigate to the home page
+  27 |     async navigateToHomePage() {
+  28 |         const baseUrl = process.env.BASE_URL;
+  29 |         if (!baseUrl) {
+  30 |             throw new Error("BASE_URL is not defined in environment variables.");
+  31 |         }
+  32 |
+  33 |         await this.page.goto(baseUrl);
+  34 |         await this.page.waitForLoadState("domcontentloaded");
+  35 |         await expect(this.page).toHaveURL(new RegExp(`${baseUrl}.*`), {
+  36 |             timeout: 10000,
+  37 |         });
+  38 |         console.log("✅ Current URL:", this.page.url());
+  39 |     }
+  40 |
+  41 |     // Verify that all elements are displayed in the header
+  42 |     async verifyHeaderElements() {
+  43 |         await expect(this.logoicon()).toBeVisible();
+  44 |         await expect(this.languageSelector()).toBeVisible();
+  45 |         await expect(this.wishListicon()).toBeVisible();
+  46 |         await expect(this.loginicon()).toBeVisible();
+  47 |         //await expect(this.arabicicon()).toBeVisible();
+  48 |         await expect(this.newcars()).toBeVisible();
+  49 |         await expect(this.buysellcars()).toBeVisible();
+  50 |         await expect(this.deals()).toBeVisible();
+  51 |         await expect(this.services()).toBeVisible();
+  52 |         await this.page.screenshot({ path: "screehshots/headerelements.png" });
+  53 |         console.log('All header elements are visible.');
+  54 |     }
+  55 |     
+  56 |     // Verify that all elements are clickable in the header top section 
+  57 |     async verifyClickFunctionality() {
+  58 |         await this.wishListicon().click();
+  59 |         await this.page.waitForTimeout(5000);
+> 60 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/wishlist');
+     |                                 ^ Error: Timed out 5000ms waiting for expect(locator).toHaveURL(expected)
+  61 |         console.log('Wishlist icon clicked.');
+  62 |
+  63 |         await this.loginicon().click();
+  64 |         await this.page.waitForTimeout(5000);
+  65 |         await this.loginclosebtn().click();
+  66 |         console.log('Login icon clicked.');
+  67 |         
+  68 |         
+  69 |
+  70 |     }
+  71 |
+  72 |     // Verify that all elements in the navigation menu are clickable
+  73 |     async verifyTabNavigation() {
+  74 |         await this.newcars().click();
+  75 |         await this.page.waitForTimeout(5000);
+  76 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/newcars');
+  77 |         await this.buysellcars().click();
+  78 |         await this.page.waitForTimeout(5000);
+  79 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/used-cars/riyadh-surveyed');
+  80 |         await this.deals().click();
+  81 |         await this.page.waitForTimeout(5000);
+  82 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/campaigns')
+  83 |         await this.services().click();
+  84 |         await this.page.waitForTimeout(5000);
+  85 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/vas/warranty');
+  86 |         await this.page.screenshot({ path: "screenshots/headerTabs.png" });
+  87 |         console.log('All header tabs are clickable and navigated to the correct page.');
+  88 |     }
+  89 | }
+```

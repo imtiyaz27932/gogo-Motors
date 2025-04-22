@@ -1,0 +1,57 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Header tests >> Verify that all the elements are displayed in the header
+- Location: D:\gogomotor\tests\header\headerTest.spec.ts:13:9
+
+# Error details
+
+```
+Error: expect.toBeVisible: Error: strict mode violation: locator('img') resolved to 20 elements:
+    1) <img width="100" height="34" data-nimg="1" decoding="async" src="/images/logo.svg" class="!h-[34px] w-[100px] cursor-pointer"/> aka getByRole('link').filter({ hasText: /^$/ })
+    2) <img alt="icon" height="18" width="27.43" loading="eager" decoding="sync" class="object-contain" src="/images/ar-icon.png"/> aka getByRole('img', { name: 'icon' })
+    3) <img width="50" height="6" data-nimg="1" decoding="async" src="/images/logo.svg" class="!h-6 w-[50px] cursor-pointer"/> aka locator('.\\!h-6')
+    4) <img alt="icon" height="18" width="27.43" loading="eager" decoding="sync" class="object-contain" src="/images/ar-icon.png"/> aka locator('section').filter({ hasText: 'Your browser does not support' }).locator('picture img')
+    5) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fnewcars.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fnewcars.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fnewcars.webp&w=96&q=75 2x"/> aka locator('.scroll-state-header-car > img').first()
+    6) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fusedcars.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fusedcars.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fusedcars.webp&w=96&q=75 2x"/> aka locator('div:nth-child(2) > img').first()
+    7) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fsellmycar.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fsellmycar.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fsellmycar.webp&w=96&q=75 2x"/> aka locator('div:nth-child(3) > img').first()
+    8) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fdeals.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fdeals.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fdeals.webp&w=96&q=75 2x"/> aka locator('div:nth-child(4) > img').first()
+    9) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Foffers.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Foffers.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Foffers.webp&w=96&q=75 2x"/> aka locator('div:nth-child(5) > img').first()
+    10) <img width="34" height="34" data-nimg="1" loading="lazy" decoding="async" src="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fservices.webp&w=96&q=75" srcset="/_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fservices.webp&w=48&q=75 1x, /_next/image?url=%2Fimages%2Fhome-icon%2FnewIcons%2Fservices.webp&w=96&q=75 2x"/> aka locator('div:nth-child(6) > img').first()
+    ...
+
+Call log:
+  - expect.toBeVisible with timeout 5000ms
+  - waiting for locator('img')
+
+    at D:\gogomotor\tests\header\headerTest.spec.ts:14:43
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '@playwright/test';
+   2 | import { HeaderPage } from '../../pages/headerPage';
+   3 |
+   4 |
+   5 | test.describe('Header tests', () => {
+   6 |     let headerpage: HeaderPage;
+   7 |
+   8 |     test.beforeEach(async ({ page }) => {
+   9 |         headerpage = new HeaderPage(page);
+  10 |         await headerpage.navigateToHomePage();
+  11 |     });
+  12 |
+  13 |     test('Verify that all the elements are displayed in the header', async ({ page }) => {
+> 14 |         await expect(page.locator('img')).toBeVisible();
+     |                                           ^ Error: expect.toBeVisible: Error: strict mode violation: locator('img') resolved to 20 elements:
+  15 |
+  16 |
+  17 |     });
+  18 | });
+```

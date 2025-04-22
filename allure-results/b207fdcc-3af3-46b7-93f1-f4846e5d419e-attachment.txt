@@ -1,0 +1,2 @@
+✅ Current URL: https://liveuat.gogomotor.com/en
+All header elements are visible.

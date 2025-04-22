@@ -1,0 +1,181 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Header tests >> Verify that user can login
+- Location: D:\gogomotor\tests\header\headerTest.spec.ts:25:9
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'login' })
+    - locator resolved to <button id="loginid" tabindex="5" type="button" aria-label="login" class="relative flex gap-2 items-center flex-shrink-0 text-15 font-mediu text-white">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div class="fixed top-0 left-0 h-full w-full z-[101] flex items-end sm:items-center justify-center bg-black/80">…</div> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div class="fixed top-0 left-0 h-full w-full z-[101] flex items-end sm:items-center justify-center bg-black/80">…</div> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    30 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div class="fixed top-0 left-0 h-full w-full z-[101] flex items-end sm:items-center justify-center bg-black/80">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+    at HeaderPage.loginWithCountryCode (D:\gogomotor\pages\headerPage.ts:91:32)
+    at D:\gogomotor\tests\header\headerTest.spec.ts:27:26
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from "@playwright/test";
+   2 | import { faker } from "@faker-js/faker";
+   3 |
+   4 | export class HeaderPage {
+   5 |     private page: Page;
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         this.page = page;
+   9 |     }
+   10 |
+   11 |     // Selectors
+   12 |     private logoicon = () => this.page.getByRole("link", { name: /GoGo Motor - Buy and Sell/i });
+   13 |     private languageSelector = () => this.page.getByRole("button", { name: "Riyadh" });
+   14 |     private wishListicon = () => this.page.getByRole("button", { name: "wishlist" });
+   15 |     private loginicon = () => this.page.getByRole("button", { name: "login" });
+   16 |     private loginclosebtn = () => this.page.locator('#back-btn-wrapper div').getByRole('img');
+   17 |     private newcars = () => this.page.getByRole('navigation').getByText('New Cars');
+   18 |     private buysellcars = () => this.page.getByRole('navigation').getByText('Buy & Sell Used Cars');
+   19 |     private deals = () => this.page.getByRole('navigation').getByText('Deals', { exact: true });
+   20 |     private services = () => this.page.getByRole('navigation').getByText('Services');
+   21 |     private countrycodelist = () => this.page.getByRole('combobox');
+   22 |     private PhoneNumber = () => this.page.getByRole('textbox', { name: 'Mobile Number' });
+   23 |     private proceedBtn = () => this.page.getByRole('button', { name: 'Proceed' });
+   24 |     private otpfield = () => this.page.locator('input[name="OTPNumber"]');
+   25 |                 
+   26 |     // Navigate to the home page
+   27 |     async navigateToHomePage() {
+   28 |         const baseUrl = process.env.BASE_URL;
+   29 |         if (!baseUrl) {
+   30 |             throw new Error("BASE_URL is not defined in environment variables.");
+   31 |         }
+   32 |
+   33 |         await this.page.goto(baseUrl);
+   34 |         await this.page.waitForLoadState("networkidle");  // Ensures all network requests are done
+   35 |         await expect(this.page).toHaveURL(new RegExp(`${baseUrl}.*`), { timeout: 10000 });
+   36 |
+   37 |         console.log("✅ Current URL:", this.page.url());
+   38 |     }
+   39 |
+   40 |     // Verify that all elements are displayed in the header
+   41 |     async verifyHeaderElements() {
+   42 |         await expect(this.logoicon()).toBeVisible();
+   43 |         await expect(this.languageSelector()).toBeVisible();
+   44 |         await expect(this.wishListicon()).toBeVisible();
+   45 |         await expect(this.loginicon()).toBeVisible();
+   46 |         await expect(this.newcars()).toBeVisible();
+   47 |         await expect(this.buysellcars()).toBeVisible();
+   48 |         await expect(this.deals()).toBeVisible();
+   49 |         await expect(this.services()).toBeVisible();
+   50 |
+   51 |         await this.page.screenshot({ path: "screenshots/header_elements.png" });
+   52 |         console.log('✅ All header elements are visible.');
+   53 |     }
+   54 |     
+   55 |     // Verify that header top section elements are clickable
+   56 |     async verifyClickFunctionality() {
+   57 |         await this.wishListicon().click();
+   58 |         await this.page.waitForLoadState("networkidle");  
+   59 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/wishlist', { timeout: 15000 });
+   60 |         console.log('✅ Wishlist icon clicked.');
+   61 |
+   62 |         await this.loginicon().click();
+   63 |         await this.page.waitForLoadState("networkidle");
+   64 |         await this.loginclosebtn().click();
+   65 |         console.log('✅ Login icon clicked and closed.');
+   66 |     }
+   67 |
+   68 |     // Verify navigation menu elements are clickable
+   69 |     async verifyTabNavigation() {
+   70 |         await this.newcars().click();
+   71 |         await this.page.waitForLoadState("networkidle");
+   72 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/newcars', { timeout: 15000 });
+   73 |
+   74 |         await this.buysellcars().click();
+   75 |         await this.page.waitForLoadState("networkidle");
+   76 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/used-cars/riyadh-surveyed', { timeout: 15000 });
+   77 |
+   78 |         await this.deals().click();
+   79 |         await this.page.waitForLoadState("networkidle");
+   80 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/campaigns', { timeout: 15000 });
+   81 |
+   82 |         await this.services().click();
+   83 |         await this.page.waitForLoadState("networkidle");
+   84 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/vas/warranty', { timeout: 15000 });
+   85 |
+   86 |         await this.page.screenshot({ path: "screenshots/header_tabs.png" });
+   87 |         console.log('✅ All header tabs navigated successfully.');
+   88 |     }
+   89 |
+   90 |     async loginWithCountryCode(index: number, countryCode: string) {
+>  91 |         await this.loginicon().click();
+      |                                ^ Error: locator.click: Test timeout of 30000ms exceeded.
+   92 |         await this.page.waitForLoadState("networkidle");
+   93 |         await this.page.waitForTimeout(2000);
+   94 |     
+   95 |         await this.countrycodelist().selectOption({ index });
+   96 |         await this.page.waitForTimeout(1000);
+   97 |     
+   98 |         let phoneNumber = '';
+   99 |         if (countryCode === '+91') {
+  100 |             // Generate an Indian number (starting with 9 and 9 digits after)
+  101 |             phoneNumber = '9' + faker.string.numeric(9);
+  102 |         } else if (countryCode === '+966') {
+  103 |             // Generate a Saudi number (commonly starts with 5 and 8 digits after)
+  104 |             phoneNumber = '5' + faker.string.numeric(8);
+  105 |         } else {
+  106 |             phoneNumber = faker.phone.number();
+  107 |         }
+  108 |     
+  109 |         await this.PhoneNumber().fill(phoneNumber);
+  110 |         await this.proceedBtn().click();
+  111 |         await this.page.waitForLoadState("networkidle");
+  112 |         await this.page.waitForTimeout(2000);
+  113 |         await this.otpfield().fill('123456');
+  114 |         await this.page.screenshot({ path: `screenshots/login_${countryCode}.png` });
+  115 |     
+  116 |     }
+  117 |     
+  118 |     async loginWithSaudiAndIndia() {
+  119 |         // First login with Saudi code (index 1)
+  120 |         await this.loginWithCountryCode(1, '+966');
+  121 |     
+  122 |         // You can optionally reload or navigate back to home page if needed
+  123 |         await this.page.goto(process.env.BASE_URL || '');
+  124 |         await this.page.waitForLoadState("networkidle");
+  125 |     
+  126 |         // Then login with India code (index 2)
+  127 |         await this.loginWithCountryCode(2, '+91');
+  128 |     }
+  129 |     
+  130 | }
+  131 |
+```

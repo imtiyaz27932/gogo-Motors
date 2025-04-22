@@ -1,0 +1,6 @@
+✅ Current URL: https://liveuat.gogomotor.com/en
+Logo icon clicked.
+Language selector clicked.
+Wishlist icon clicked.
+Login icon clicked.
+Arabic icon clicked.

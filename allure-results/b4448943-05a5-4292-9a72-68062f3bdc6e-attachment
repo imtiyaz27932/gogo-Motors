@@ -1,0 +1,216 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Header tests >> Verify that un-authenticated user can login through wishlist
+- Location: D:\gogomotor\tests\header\headerTest.spec.ts:40:9
+
+# Error details
+
+```
+Error: locator.selectOption: Error: strict mode violation: getByRole('combobox') resolved to 2 elements:
+    1) <select class="w-[62px] md:w-[56px] 2xl:w-[56px] !text-[#212121]/[70%] !rounded-l-none !px-0 border-none !text-opacity-[0.7] text-[15px] ml-[6px] rtl:ml-0 rtl:mr-[6px]">…</select> aka getByRole('banner').getByRole('combobox')
+    2) <select class="w-[70px] md:w-[70px] 2xl:w-[80px] !text-black !rounded-l-none !px-0">…</select> aka getByRole('main').getByRole('combobox')
+
+Call log:
+  - waiting for getByRole('combobox')
+
+    at HeaderPage.loginWithCountryCode (D:\gogomotor\pages\headerPage.ts:100:38)
+    at HeaderPage.loginThroughWishlist (D:\gogomotor\pages\headerPage.ts:180:9)
+    at D:\gogomotor\tests\header\headerTest.spec.ts:41:9
+```
+
+# Test source
+
+```ts
+   1 | import { Page, expect } from "@playwright/test";
+   2 | import { faker } from "@faker-js/faker";
+   3 |
+   4 | export class HeaderPage {
+   5 |     private page: Page;
+   6 |
+   7 |     constructor(page: Page) {
+   8 |         this.page = page;
+   9 |     }
+   10 |
+   11 |     // Selectors
+   12 |     private logoicon = () => this.page.getByRole("link", { name: /GoGo Motor - Buy and Sell/i });
+   13 |     private languageSelector = () => this.page.getByRole("button", { name: "Riyadh" });
+   14 |     private wishListicon = () => this.page.getByRole("button", { name: "wishlist" });
+   15 |     private loginicon = () => this.page.getByRole("button", { name: "login" });
+   16 |     private loginclosebtn = () => this.page.locator('#back-btn-wrapper div').getByRole('img');
+   17 |     private newcars = () => this.page.getByRole('navigation').getByText('New Cars');
+   18 |     private buysellcars = () => this.page.getByRole('navigation').getByText('Buy & Sell Used Cars');
+   19 |     private deals = () => this.page.getByRole('navigation').getByText('Deals', { exact: true });
+   20 |     private services = () => this.page.getByRole('navigation').getByText('Services');
+   21 |     private countrycodelist = () => this.page.getByRole('combobox');
+   22 |     private PhoneNumber = () => this.page.getByRole('textbox', { name: 'Mobile Number' });
+   23 |     private proceedBtn = () => this.page.getByRole('button', { name: 'Proceed' });
+   24 |     private otpfield = () => this.page.locator('input[name="OTPNumber"]');
+   25 |     private signinbtn = () => this.page.getByRole('button', { name: 'Sign In' });
+   26 |     private getStartedBtn = () => this.page.getByRole('button', { name: 'Get Started' });
+   27 |                 
+   28 |     // Navigate to the home page
+   29 |     async navigateToHomePage() {
+   30 |         const baseUrl = process.env.BASE_URL;
+   31 |         if (!baseUrl) {
+   32 |             throw new Error("BASE_URL is not defined in environment variables.");
+   33 |         }
+   34 |
+   35 |         await this.page.goto(baseUrl);
+   36 |         await this.page.waitForLoadState("networkidle");  // Ensures all network requests are done
+   37 |         await expect(this.page).toHaveURL(new RegExp(`${baseUrl}.*`), { timeout: 10000 });
+   38 |
+   39 |         console.log("✅ Current URL:", this.page.url());
+   40 |     }
+   41 |
+   42 |     // Verify that all elements are displayed in the header
+   43 |     async verifyHeaderElements() {
+   44 |         await expect(this.logoicon()).toBeVisible();
+   45 |         await expect(this.languageSelector()).toBeVisible();
+   46 |         await expect(this.wishListicon()).toBeVisible();
+   47 |         await expect(this.loginicon()).toBeVisible();
+   48 |         await expect(this.newcars()).toBeVisible();
+   49 |         await expect(this.buysellcars()).toBeVisible();
+   50 |         await expect(this.deals()).toBeVisible();
+   51 |         await expect(this.services()).toBeVisible();
+   52 |
+   53 |         await this.page.screenshot({ path: "screenshots/header_elements.png" });
+   54 |         console.log('✅ All header elements are visible.');
+   55 |     }
+   56 |     
+   57 |     // Verify that header top section elements are clickable
+   58 |     async verifyClickFunctionality() {
+   59 |         await this.wishListicon().click();
+   60 |         await this.page.waitForLoadState("networkidle");
+   61 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/wishlist', { timeout: 15000 });
+   62 |         console.log('✅ Wishlist icon clicked.');
+   63 |
+   64 |         await this.loginicon().click();
+   65 |         await this.page.waitForLoadState("networkidle");
+   66 |         await this.loginclosebtn().click();
+   67 |         console.log('✅ Login icon clicked and closed.');
+   68 |     }
+   69 |
+   70 |     // Verify navigation menu elements are clickable
+   71 |     async verifyTabNavigation() {
+   72 |         await this.newcars().click();
+   73 |         await this.page.waitForLoadState("networkidle");
+   74 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/newcars', { timeout: 15000 });
+   75 |
+   76 |         await this.buysellcars().click();
+   77 |         await this.page.waitForLoadState("networkidle");
+   78 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/used-cars/riyadh-surveyed', { timeout: 15000 });
+   79 |
+   80 |         await this.deals().click();
+   81 |         await this.page.waitForLoadState("networkidle");
+   82 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/campaigns', { timeout: 15000 });
+   83 |
+   84 |         await this.services().click();
+   85 |         await this.page.waitForLoadState("networkidle");
+   86 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/vas/warranty', { timeout: 15000 });
+   87 |
+   88 |         await this.page.screenshot({ path: "screenshots/header_tabs.png" });
+   89 |         console.log('✅ All header tabs navigated successfully.');
+   90 |     }
+   91 |
+   92 |     async loginWithCountryCode(index: number, countryCode: string) {
+   93 |         //await this.page.waitForSelector('.globalloader', { state: 'detached', timeout: 10000 });
+   94 |         await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 15000 });
+   95 |
+   96 |         await this.loginicon().click();
+   97 |         await this.page.waitForLoadState("networkidle");
+   98 |         await this.page.waitForTimeout(2000);
+   99 |     
+> 100 |         await this.countrycodelist().selectOption({ index });
+      |                                      ^ Error: locator.selectOption: Error: strict mode violation: getByRole('combobox') resolved to 2 elements:
+  101 |         await this.page.waitForTimeout(1000);
+  102 |     
+  103 |         let phoneNumber = '';
+  104 |         if (countryCode === '+91') {
+  105 |             phoneNumber = '9' + faker.string.numeric(9);
+  106 |         } else if (countryCode === '+966') {
+  107 |             phoneNumber = '5' + faker.string.numeric(8);
+  108 |         } else {
+  109 |             phoneNumber = faker.phone.number();
+  110 |         }
+  111 |     
+  112 |         await this.PhoneNumber().fill(phoneNumber);
+  113 |         await this.proceedBtn().click();
+  114 |         await this.page.waitForLoadState("networkidle");
+  115 |         await this.page.waitForTimeout(2000);
+  116 |         await this.otpfield().fill('123456');
+  117 |         await this.signinbtn().click();
+  118 |     
+  119 |         try {
+  120 |             // Wait max 5-6 seconds for something indicating successful login, like wishlist button appearing or page navigation
+  121 |             await this.page.waitForLoadState('networkidle', { timeout: 6000 });
+  122 |             console.log(`✅ Login attempt for ${countryCode} completed.`);
+  123 |         } catch (error) {
+  124 |             console.warn(`⚠️ Login with ${countryCode} got stuck or failed. Continuing with the next test case.`);
+  125 |         }
+  126 |     
+  127 |         await this.page.screenshot({ path: `screenshots/login_${countryCode}.png` });
+  128 |     }
+  129 |     
+  130 |     
+  131 |     async loginWithSaudiAndIndia() {
+  132 |         // Attempt login with Saudi number
+  133 |         await this.loginWithCountryCode(1, '+966');
+  134 |         await this.page.waitForTimeout(2000);
+  135 |     
+  136 |         // Refresh or go home, just to reset UI state
+  137 |         await this.navigateToHomePage();
+  138 |         await this.page.waitForLoadState("networkidle");
+  139 |         await this.page.waitForTimeout(2000);
+  140 |     
+  141 |         // Attempt login with Indian number
+  142 |         await this.loginWithCountryCode(2, '+91');
+  143 |         await this.page.waitForLoadState("networkidle");
+  144 |     }
+  145 |
+  146 |     async verifyLoaderStuckOnInvalidOtp() {
+  147 |         await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 15000 });
+  148 |     
+  149 |         await this.loginicon().click();
+  150 |         await this.page.waitForLoadState("networkidle");
+  151 |         await this.countrycodelist().selectOption({ index: 1 });
+  152 |         await this.PhoneNumber().fill('500000000');
+  153 |         await this.proceedBtn().click();
+  154 |         await this.page.waitForLoadState("networkidle");
+  155 |         await this.page.waitForTimeout(2000);
+  156 |     
+  157 |         // Enter invalid OTP
+  158 |         await this.otpfield().fill('000000');
+  159 |         await this.signinbtn().click();
+  160 |     
+  161 |         console.log('⚠️ Waiting to see if loader disappears or remains stuck...');
+  162 |         try {
+  163 |             // If loader still visible after 10 seconds, fail test
+  164 |             await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 10000 });
+  165 |             console.log('✅ Loader disappeared — system responded to invalid OTP.');
+  166 |         } catch (error) {
+  167 |             console.error('❗ BUG: Loader still hanging on invalid OTP, no validation message.');
+  168 |             await this.page.screenshot({ path: 'screenshots/loader_stuck_on_invalid_otp.png' });
+  169 |             throw new Error('BUG: Loader remains stuck and no validation message appears after entering invalid OTP.');
+  170 |         }
+  171 |     }
+  172 |
+  173 |     // Perform login through wishlist if user is un-authenticated
+  174 |     async loginThroughWishlist() {
+  175 |         await this.wishListicon().click();
+  176 |         await this.getStartedBtn().click();
+  177 |         await this.page.waitForLoadState("networkidle");
+  178 |         await this.page.waitForTimeout(1000);
+  179 |         await this.signinbtn().click();
+  180 |         await this.loginWithCountryCode(1,'+966')
+  181 |
+  182 |
+  183 |     
+  184 |     }
+  185 | }
+```

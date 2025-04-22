@@ -1,0 +1,251 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Header tests >> Verify that un-authenticated user can login through wishlist
+- Location: D:\gogomotor\tests\header\headerTest.spec.ts:40:9
+
+# Error details
+
+```
+Error: locator.fill: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('input[name="OTPNumber"]')
+    - locator resolved to <input disabled class="" value="" maxlength="6" name="OTPNumber" aria-invalid="false" autocomplete="one-time-code" aria-describedby="err-OTPNumber"/>
+    - fill("123456")
+  - attempting fill action
+    2 × waiting for element to be visible, enabled and editable
+      - element is not enabled
+    - retrying fill action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and editable
+      - element is not enabled
+    - retrying fill action
+      - waiting 100ms
+    38 × waiting for element to be visible, enabled and editable
+       - element is not enabled
+     - retrying fill action
+       - waiting 500ms
+
+    at HeaderPage.loginThroughWishlist (D:\gogomotor\pages\headerPage.ts:186:31)
+    at D:\gogomotor\tests\header\headerTest.spec.ts:41:9
+```
+
+# Page snapshot
+
+```yaml
+- banner:
+  - text: Your browser does not support the video tag.
+  - link "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia":
+    - img "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia"
+  - button "Riyadh":
+    - img
+    - text: Riyadh
+    - img
+  - button "wishlist":
+    - text: Save
+    - img
+  - button "login":
+    - img
+    - text: Login
+  - img "icon"
+  - text: عربى
+  - navigation "Global": New Cars Buy & Sell Used Cars Deals Services
+- main:
+  - img "gogo motor"
+  - text: Sign In Country Code
+  - img "gogo motor"
+  - combobox:
+    - option "+91" [selected]
+    - option "+966"
+  - text: Mobile Number*
+  - textbox: 154 146 3483
+  - paragraph
+  - text: OTP
+  - textbox [disabled]
+  - paragraph
+  - text: OTP is sent on your mobile no.
+  - button "Sign In"
+- contentinfo:
+  - link "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia":
+    - img "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia"
+  - link "https://www.youtube.com/channel/UCgTpgQ321gcri3QKrfLf91A":
+    - img "GoGo Motor YouTube Channel"
+  - link "https://www.linkedin.com/company/gogomotorsa":
+    - img "GoGo Motor LinkedIn Page"
+  - link "https://www.facebook.com/GoGoMotorSA/":
+    - img "GoGo Motor Facebook Page"
+  - link "https://twitter.com/GoGoMotorSA":
+    - img "GoGo Motor Twitter Profile"
+  - link "https://www.instagram.com/gogomotorsa/":
+    - img "GoGo Motor Instagram Profile"
+  - text: Need Help ?
+  - img
+  - link "8002440258"
+  - text: "Sunday - Thursday: 9:00 AM - 6:00 PM"
+  - img
+  - link "customercare@gogomotor.com"
+  - text: Explore
+  - button "New Cars"
+  - button "Buy & Sell Used Cars"
+  - text: Buy Used Cars Sell My Car Surveyed Cars Outlet Cars
+  - button "Deals":
+    - text: Deals
+    - img
+  - button "Services":
+    - text: Services
+    - img
+  - text: Company
+  - link "About Us"
+  - link "Careers"
+  - link "Contact Us"
+  - link "FAQs"
+  - text: Available Cities Riyadh Jeddah Dammam Mecca Medina Al Qassim See all Download GoGo Motor App
+  - link "GoGo Motor App on Google Play for Android":
+    - img "GoGo Motor App on Google Play for Android"
+  - link "GoGo Motor App on the Apple Store for iOS":
+    - img "GoGo Motor App on the Apple Store for iOS"
+  - link "GoGo Motor App on Google Play for Android":
+    - img "GoGo Motor App on Google Play for Android"
+  - text: Subscribe to our newsletters
+  - textbox "Enter your email address"
+  - button "Subscribe" [disabled]
+  - separator
+  - list:
+    - listitem:
+      - link "Privacy Policy"
+    - listitem:
+      - link "Terms & Conditions"
+    - listitem:
+      - link "Sale & Purchase Policy"
+    - listitem:
+      - link "Refund & Cancellation Policy"
+  - text: Accepted Payment Methods
+  - img "stcpay"
+  - img "visacard"
+  - img "american-express"
+  - img "mastercard"
+  - img "casamada"
+  - img "applepay"
+  - paragraph: "Copyright © 2025-2026 National Auto Trust Company, All Rights Reserved, CR No.: 4030436087, VAT No.: 300000603210003, Unified No.: 7026415450, Office Address: Avant Masic Center, 2nd floor, 8491 King Abdul Aziz Rd, Al-Nahdah - Jeddah 23523 – Additional No. 2151"
+  - img "special images"
+- region "Notifications Alt+T"
+- alert: ‪GoGo Motor‬
+```
+
+# Test source
+
+```ts
+   86 |         await this.services().click();
+   87 |         await this.page.waitForLoadState("networkidle");
+   88 |         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/vas/warranty', { timeout: 15000 });
+   89 |
+   90 |         await this.page.screenshot({ path: "screenshots/header_tabs.png" });
+   91 |         console.log('✅ All header tabs navigated successfully.');
+   92 |     }
+   93 |
+   94 |     async loginWithCountryCode(index: number, countryCode: string) {
+   95 |         //await this.page.waitForSelector('.globalloader', { state: 'detached', timeout: 10000 });
+   96 |         await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 15000 });
+   97 |
+   98 |         await this.loginicon().click();
+   99 |         await this.page.waitForLoadState("networkidle");
+  100 |         await this.page.waitForTimeout(2000);
+  101 |     
+  102 |         await this.countrycodelist().selectOption({ index });
+  103 |         await this.page.waitForTimeout(1000);
+  104 |     
+  105 |         let phoneNumber = '';
+  106 |         if (countryCode === '+91') {
+  107 |             phoneNumber = '9' + faker.string.numeric(9);
+  108 |         } else if (countryCode === '+966') {
+  109 |             phoneNumber = '5' + faker.string.numeric(8);
+  110 |         } else {
+  111 |             phoneNumber = faker.phone.number();
+  112 |         }
+  113 |     
+  114 |         await this.PhoneNumber().fill(phoneNumber);
+  115 |         await this.proceedBtn().click();
+  116 |         await this.page.waitForLoadState("networkidle");
+  117 |         await this.page.waitForTimeout(2000);
+  118 |         await this.otpfield().fill('123456');
+  119 |         await this.signinbtn().click();
+  120 |     
+  121 |         try {
+  122 |             // Wait max 5-6 seconds for something indicating successful login, like wishlist button appearing or page navigation
+  123 |             await this.page.waitForLoadState('networkidle', { timeout: 6000 });
+  124 |             console.log(`✅ Login attempt for ${countryCode} completed.`);
+  125 |         } catch (error) {
+  126 |             console.warn(`⚠️ Login with ${countryCode} got stuck or failed. Continuing with the next test case.`);
+  127 |         }
+  128 |     
+  129 |         await this.page.screenshot({ path: `screenshots/login_${countryCode}.png` });
+  130 |     }
+  131 |     
+  132 |     
+  133 |     async loginWithSaudiAndIndia() {
+  134 |         // Attempt login with Saudi number
+  135 |         await this.loginWithCountryCode(1, '+966');
+  136 |         await this.page.waitForTimeout(2000);
+  137 |     
+  138 |         // Refresh or go home, just to reset UI state
+  139 |         await this.navigateToHomePage();
+  140 |         await this.page.waitForLoadState("networkidle");
+  141 |         await this.page.waitForTimeout(2000);
+  142 |     
+  143 |         // Attempt login with Indian number
+  144 |         await this.loginWithCountryCode(2, '+91');
+  145 |         await this.page.waitForLoadState("networkidle");
+  146 |     }
+  147 |
+  148 |     async verifyLoaderStuckOnInvalidOtp() {
+  149 |         await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 15000 });
+  150 |     
+  151 |         await this.loginicon().click();
+  152 |         await this.page.waitForLoadState("networkidle");
+  153 |         await this.countrycodelist().selectOption({ index: 1 });
+  154 |         await this.PhoneNumber().fill('500000000');
+  155 |         await this.proceedBtn().click();
+  156 |         await this.page.waitForLoadState("networkidle");
+  157 |         await this.page.waitForTimeout(2000);
+  158 |     
+  159 |         // Enter invalid OTP
+  160 |         await this.otpfield().fill('000000');
+  161 |         await this.signinbtn().click();
+  162 |     
+  163 |         console.log('⚠️ Waiting to see if loader disappears or remains stuck...');
+  164 |         try {
+  165 |             // If loader still visible after 10 seconds, fail test
+  166 |             await this.page.waitForSelector('.globalloader', { state: 'hidden', timeout: 10000 });
+  167 |             console.log('✅ Loader disappeared — system responded to invalid OTP.');
+  168 |         } catch (error) {
+  169 |             console.error('❗ BUG: Loader still hanging on invalid OTP, no validation message.');
+  170 |             await this.page.screenshot({ path: 'screenshots/loader_stuck_on_invalid_otp.png' });
+  171 |             throw new Error('BUG: Loader remains stuck and no validation message appears after entering invalid OTP.');
+  172 |         }
+  173 |     }
+  174 |
+  175 |     // Perform login through wishlist if user is un-authenticated
+  176 |     async loginThroughWishlist() {
+  177 |         await this.wishListicon().click();
+  178 |         await this.getStartedBtn().click();
+  179 |         await this.page.waitForLoadState("networkidle");
+  180 |         await this.page.waitForTimeout(1000);
+  181 |         await this.signinbtn().click();
+  182 |         const phoneNumber = faker.phone.number();
+  183 |         await this.wishlistphonenumber().fill(phoneNumber);
+  184 |         await this.sendotplink().click()
+  185 |         await this.page.waitForLoadState("networkidle");
+> 186 |         await this.otpfield().fill('123456');
+      |                               ^ Error: locator.fill: Test timeout of 30000ms exceeded.
+  187 |         await this.signinbtn().click();
+  188 |
+  189 |
+  190 |     
+  191 |     }
+  192 | }
+```
