@@ -75,7 +75,7 @@ export class DiscountNewCars {
 
     async verifyCarForm() {
         await this.vinNumber().scrollIntoViewIfNeeded();
-        await this.vinNumber().fill('LSJA36E32LZ02795f');
+        await this.vinNumber().fill('LSJA36E32LZ02795z');
 
         await this.deliveryDate().scrollIntoViewIfNeeded();
         await this.deliveryDate().click();

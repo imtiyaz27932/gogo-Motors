@@ -39,11 +39,22 @@ test.describe('Mojaz Report Test Cases', () => {
         Logger.success('Test Passed: Car image is visible.');
     });
 
-    test('Verify E2E flow of Mojaz Payment', async () => {
+    test('Verify E2E flow of Mojaz Report with Payment Flow', async () => {
         Logger.info('Test Start: Verifying the end-to-end flow of Mojaz Payment.');
         await payment.enterVIN(mojazTestData.validVIN);
         Logger.info('VIN entered successfully.');
         await payment.clickGetFreeReport();
+        await payment.clickSelectCar();
+        await payment.clickSelectYear();
+        await payment.clickSelectCar1();
+        await payment.clickSelectAutomatic()
+        await payment.clickselectfullreport()
+        await payment.selectCity();
+        await payment.applyPromoCode();
+        await payment.fillEmail();
+        await payment.cardDetails();
+        await payment.clickDetailedReportAndDownloadPDF();
+        await payment.handleDownloadPDF();
         Logger.success('Test Passed: E2E flow of Mojaz Payment completed.');
     });
 

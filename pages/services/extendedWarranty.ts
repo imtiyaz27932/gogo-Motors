@@ -212,6 +212,7 @@ export class ExtendedWarranty {
         await this.paynowbtn().click();
         //await this.packagebtn().click();
         await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(3000)
 
         await this.page.getByRole('textbox', { name: 'Card Number' }).fill('4111111111111111');
         await this.page.getByRole('textbox', { name: 'Name on Card' }).fill('Test User');

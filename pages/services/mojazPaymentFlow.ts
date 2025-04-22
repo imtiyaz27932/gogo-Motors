@@ -2,6 +2,7 @@ import { expect, Page } from "@playwright/test";
 import { ExtendedWarranty } from '../services/extendedWarranty';
 import { Logger } from "../../utils/logger";
 import { BrokenLinkChecker } from "../../utils/brokenLinkChecker";
+import * as fs from 'fs';
 
 export class PaymentFlow {
     private page: Page;
@@ -34,7 +35,7 @@ export class PaymentFlow {
     // 4. Car Story Section
     private carStorySectionTitle = () => this.page.getByRole('heading', { name: 'Unveil Your Car\'s True Story' })
     private carStorySubText = () => this.page.getByText('The Mojaz report provides complete transparency, from accident history to service records');
-    private carStoryImage = () =>  this.page.locator('img[src*="mojaz-demo-report"]');
+    private carStoryImage = () => this.page.locator('img[src*="mojaz-demo-report"]');
 
 
 
@@ -54,6 +55,36 @@ export class PaymentFlow {
 
 
 
+    //Select Car Buttons
+    private selectcar = () => this.page.getByRole('img', { name: 'TOYOTA' })
+    private selectyear = () => this.page.getByRole('listitem').filter({ hasText: '2024' })
+    private selectcar1 = () => this.page.getByText('FORTUNER')
+    private selectautomatic = () => this.page.getByRole('listitem').filter({ hasText: 'SAutomatic' })
+
+
+    // Select Report selectors
+    private getfullreport92 = () => this.page.getByRole('button', { name: 'Get Full Report ' })
+    private continuebtn = () => this.page.getByRole('button', { name: 'Continue' })
+    
+    // city selectors
+    private city = () => this.page.getByRole('img', { name: 'Riyadh' })
+    
+    // Promocode selector
+    private promocode = () => this.page.getByRole('textbox', { name: 'eg FIRST300' });
+    private applybtn = () => this.page.getByRole('button', { name: 'Apply' })
+    
+    //Email selector
+    private email = () => this.page.getByRole('textbox', { name: 'Email Address' })
+    private proceedbtn = () => this.page.getByRole('button', { name: 'Proceed' })
+    private verifyBtn = () => this.page.getByRole('button', { name: 'Verify' })
+    private paynowbtn = () => this.page.getByRole('button', { name: 'Pay Now' });
+    private closenmodelicon = () => this.page.locator('#modal-root path').nth(1)
+
+
+    // Detailed report selectors
+    private detailedreport = () => this.page.getByRole('button', { name: 'See detail report' })
+    private downloadPdf = () => this.page.getByRole('button', { name: 'mojaz logo Download PDF' })
+    
     // ========== ACTIONS ==========
 
 
@@ -117,14 +148,17 @@ export class PaymentFlow {
         await this.page.waitForURL('**/mojaz-report', { timeout: 10000 });
         await expect(this.page).toHaveURL('https://liveuat.gogomotor.com/en/mojaz-report');
     }
-
+    
     async enterVIN(vin: string) {
+        Logger.info('Entering VIN...')
         await this.vinInput().fill(vin);
     }
 
     async clickGetFreeReport() {
+        Logger.info('Clicking on Get Free Report button...')
         await this.getFreeReportBtn().click();
     }
+
 
 
     async isGetReportButtonDisabled(): Promise<boolean> {
@@ -134,6 +168,125 @@ export class PaymentFlow {
     async assertButtonIsDisabled() {
         await expect(this.getFreeReportBtn()).toBeDisabled();
     }
+
+    async clickSelectCar() {
+        Logger.info('Clicking on Select Car...');
+        await this.selectcar().click();
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async clickSelectYear() {
+        Logger.info('Clicking on Select Year...');
+        await this.selectyear().click();
+        await this.page.waitForLoadState('networkidle')
+
+    }
+    async clickSelectAutomatic() {
+        Logger.info('Clicking on Select Automatic...');
+        await this.selectautomatic().click();
+        await this.page.waitForLoadState('networkidle')
+    }
+
+    async clickSelectCar1() {
+        Logger.info('Clicking on Select Car 1...');
+        await this.selectcar1().click();
+        await this.page.waitForLoadState('networkidle')
+    }
+
+    async clickselectfullreport() {
+        Logger.info('Clicking on Select Full Report...');
+        await this.getfullreport92().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000)
+
+        Logger.info('Clicking on Continue button...');
+        await this.continuebtn().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000)
+    }
+
+    async selectCity() {
+        Logger.info('Clicking on Select City...');
+        await this.city().click();
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async applyPromoCode() {
+        Logger.info('Applying Promo Code...');
+        await this.promocode().fill('MJZUAT')
+        await this.applybtn().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000)
+    }
+
+    async fillEmail() {
+        Logger.info('Filling Email...');
+        await this.email().fill('portal@gogomotor.com')
+
+        Logger.info('Clicking on Proceed button...');
+        await this.proceedbtn().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(1000)
+        await this.page.getByRole('textbox', { name: 'Please enter OTP' }).fill('9461')
+
+        Logger.info('Clicking on Verify button...');
+        await this.verifyBtn().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(4000)
+
+        Logger.info('Clicking on Pay Now button...');
+        await this.paynowbtn().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(9000)
+    }
+
+    async cardDetails() {
+        Logger.info('Filling Card Details...');
+        await this.page.getByRole('textbox', { name: 'Card Number' }).fill('4111111111111111');
+        await this.page.getByRole('textbox', { name: 'Name on Card' }).fill('Test User');
+        await this.page.getByPlaceholder('MM/YY').fill('12/26');
+        await this.page.getByRole('textbox', { name: 'CVV' }).fill('123');
+
+        await this.page.getByRole('button', { name: /place order/i }).click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000);
+       
+    }
+
+    async clickDetailedReportAndDownloadPDF() {
+        Logger.info('Clicking on Detailed Report ');
+        // Click on the "See detailed report" button
+        const [newPage] = await Promise.all([
+            this.page.context().waitForEvent('page'), // Wait for the new tab to open
+            this.detailedreport().click(), // Click the button to open the new tab
+        ]);
+    
+        // Wait for the new tab to load
+        await newPage.waitForLoadState('domcontentloaded');
+        Logger.info(`Detailed report opened in new tab: ${newPage.url()}`);
+        await this.page.waitForTimeout(4000)
+    
+        // Close the new tab after it opens
+        await newPage.close();
+        Logger.success('New tab closed successfully');
+    }
+    async handleDownloadPDF(): Promise<void> {
+        Logger.info('Clicking on Download PDF button...');
+        const [newPage] = await Promise.all([
+            this.page.context().waitForEvent('page'), // Wait for the new tab to open
+            this.downloadPdf().click(), // Click the download button that opens the new tab
+        ]);
+    
+        await newPage.waitForLoadState('domcontentloaded');
+        Logger.info(`New tab opened with URL: ${newPage.url()}`);
+        await this.page.waitForTimeout(4000)
+        await newPage.close();
+        await this.page.waitForTimeout(3000)
+        
+
+        Logger.info('Closing the modal...');
+        await this.closenmodelicon().click();
+}
 
 
     async validateWhyUseMojazSection(): Promise<void> {
