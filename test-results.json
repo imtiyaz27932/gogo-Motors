@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -48,7 +48,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "chromium",
         "name": "chromium",
@@ -57,64 +57,48 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 120000
+        "timeout": 240000
       }
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "updateSourceMethod": "3way",
+    "updateSourceMethod": "patch",
     "version": "1.51.1",
-    "workers": 1,
+    "workers": 10,
     "webServer": null
   },
   "suites": [
     {
-      "title": "services\\extendedWarranty.spec.ts",
-      "file": "services/extendedWarranty.spec.ts",
+      "title": "sellCar.spec.ts",
+      "file": "sellCar.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Extended Warranty in Header Test Cases",
-          "file": "services/extendedWarranty.spec.ts",
-          "line": 11,
+          "title": "Footer Test Cases",
+          "file": "sellCar.spec.ts",
+          "line": 10,
           "column": 6,
           "specs": [
             {
-              "title": "Verify Extended Warranty Flow for New Cars without Promocode",
-              "ok": false,
+              "title": "Validate car image is visible",
+              "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 120000,
+                  "timeout": 240000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 8,
+                      "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 120026,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "D:\\gogomotor\\pages\\services\\extendedWarranty.ts",
-                            "column": 71,
-                            "line": 217
-                          },
-                          "message": "Error: locator.fill: Test timeout of 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Card Number' })\u001b[22m\n\n\n\u001b[90m   at \u001b[39m..\\pages\\services\\extendedWarranty.ts:217\n\n\u001b[0m \u001b[90m 215 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\n \u001b[90m 216 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 217 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Card Number'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'4111111111111111'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 218 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Name on Card'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'Test User'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 219 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'MM/YY'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'12/26'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 220 |\u001b[39m         \u001b[36mawait\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'CVV'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'123'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at ExtendedWarranty.skipPromocode (D:\\gogomotor\\pages\\services\\extendedWarranty.ts:217:71)\u001b[22m\n\u001b[2m    at D:\\gogomotor\\tests\\services\\extendedWarranty.spec.ts:89:3\u001b[22m"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 8425,
+                      "errors": [],
                       "stdout": [
                         {
                           "text": "\u001b[34mℹ️ [INFO]\u001b[39m --- Starting  test suite ---\n"
@@ -123,37 +107,13 @@
                           "text": "✅ Current URL: https://liveuat.gogomotor.com/en\n"
                         },
                         {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ➡ Initializing page objects and navigating to Extended Warranty tab\n"
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Navigating to the Homepage and checking functionality of sell Car\n"
                         },
                         {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ➡ Starting New Car Warranty Flow without Promocode\n"
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Clicking on the list your car button\n"
                         },
                         {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ Eligibility banner clicked\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ Car form verified\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ Car details confirmed\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ National ID and DOB entered\n"
-                        },
-                        {
-                          "text": "📅 Selecting end date: 05/22/2025\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ Kilometer details filled\n"
-                        },
-                        {
-                          "text": "✅ No registration conflict. Proceeding.\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m ✅ Plan selected\n"
-                        },
-                        {
-                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Paying without Promocode\n"
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m Test passed: Validate car image is visible\n"
                         },
                         {
                           "text": "\u001b[90m--------------------------------------------\u001b[39m\n"
@@ -162,29 +122,238 @@
                           "text": "\u001b[32m✅ [SUCCESS]\u001b[39m --- Finished test suite ---\n"
                         }
                       ],
-                      "stderr": [
-                        {
-                          "text": "\u001b[33m⚠️ [WARN]\u001b[39m Test finished with status: timedOut - Verify Extended Warranty Flow for New Cars without Promocode\n"
-                        }
-                      ],
+                      "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-04-22T11:29:34.195Z",
-                      "attachments": [
-                        {
-                          "name": "_prompt-1",
-                          "contentType": "text/markdown",
-                          "body": "IyBJbnN0cnVjdGlvbnMKCi0gRm9sbG93aW5nIFBsYXl3cmlnaHQgdGVzdCBmYWlsZWQuCi0gRXhwbGFpbiB3aHksIGJlIGNvbmNpc2UsIHJlc3BlY3QgUGxheXdyaWdodCBiZXN0IHByYWN0aWNlcy4KLSBQcm92aWRlIGEgc25pcHBldCBvZiBjb2RlIHdpdGggdGhlIGZpeCwgaWYgcG9zc2libGUuCgojIFRlc3QgaW5mbwoKLSBOYW1lOiBFeHRlbmRlZCBXYXJyYW50eSBpbiBIZWFkZXIgVGVzdCBDYXNlcyA+PiBWZXJpZnkgRXh0ZW5kZWQgV2FycmFudHkgRmxvdyBmb3IgTmV3IENhcnMgd2l0aG91dCBQcm9tb2NvZGUKLSBMb2NhdGlvbjogRDpcZ29nb21vdG9yXHRlc3RzXHNlcnZpY2VzXGV4dGVuZGVkV2FycmFudHkuc3BlYy50czo2MTo2CgojIEVycm9yIGRldGFpbHMKCmBgYApFcnJvcjogbG9jYXRvci5maWxsOiBUZXN0IHRpbWVvdXQgb2YgMTIwMDAwbXMgZXhjZWVkZWQuCkNhbGwgbG9nOgogIC0gd2FpdGluZyBmb3IgZ2V0QnlSb2xlKCd0ZXh0Ym94JywgeyBuYW1lOiAnQ2FyZCBOdW1iZXInIH0pCgogICAgYXQgRXh0ZW5kZWRXYXJyYW50eS5za2lwUHJvbW9jb2RlIChEOlxnb2dvbW90b3JccGFnZXNcc2VydmljZXNcZXh0ZW5kZWRXYXJyYW50eS50czoyMTc6NzEpCiAgICBhdCBEOlxnb2dvbW90b3JcdGVzdHNcc2VydmljZXNcZXh0ZW5kZWRXYXJyYW50eS5zcGVjLnRzOjg5OjMKYGBgCgojIFRlc3Qgc291cmNlCgpgYGB0cwogIDExNyB8ICAgICAgICAgY29uc29sZS5sb2coYPCfk4UgU2VsZWN0aW5nIGVuZCBkYXRlOiAke2Z1dHVyZURhdGV9YCk7CiAgMTE4IHwKICAxMTkgfCAgICAgICAgIGF3YWl0IHRoaXMuZW5kRGF0ZSgpLmNsaWNrKCk7CiAgMTIwIHwgICAgICAgICBhd2FpdCB0aGlzLmVuZERhdGUoKS5maWxsKGZ1dHVyZURhdGUpOwogIDEyMSB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmxvY2F0b3IoJ2JvZHknKS5jbGljaygpOwogIDEyMiB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JUaW1lb3V0KDEwMCk7CiAgMTIzIHwgICAgICAgICBhd2FpdCB0aGlzLnBhY2thZ2VidG4oKS5jbGljaygpOwogIDEyNCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JMb2FkU3RhdGUoJ25ldHdvcmtpZGxlJyk7CiAgMTI1IHwKICAxMjYgfCAgICAgICAgIGNvbnN0IGlzQmxvY2tlZCA9IGF3YWl0IHRoaXMuY2hlY2tGb3JCbG9ja2luZ01lc3NhZ2VzKCk7CiAgMTI3IHwgICAgICAgICBpZiAoaXNCbG9ja2VkKSB7CiAgMTI4IHwgICAgICAgICAgICAgY29uc29sZS5sb2coIuKblO+4jyBWZWhpY2xlIGFscmVhZHkgcmVnaXN0ZXJlZC4gU2tpcHBpbmcgZnVydGhlciBzdGVwcy4iKTsKICAxMjkgfCAgICAgICAgICAgICByZXR1cm4gZmFsc2U7CiAgMTMwIHwgICAgICAgICB9CiAgMTMxIHwKICAxMzIgfCAgICAgICAgIHJldHVybiB0cnVlOwogIDEzMyB8ICAgICB9CiAgMTM0IHwKICAxMzUgfCAgICAgYXN5bmMgU2VsZWN0UGxhbigpIHsKICAxMzYgfCAgICAgICAgIGF3YWl0IHRoaXMuc2VsZWN0cGxhbmJ0bigpLmNsaWNrKCk7CiAgMTM3IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2Uud2FpdEZvclRpbWVvdXQoMjAwMCk7CiAgMTM4IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2Uud2FpdEZvckxvYWRTdGF0ZSgnbmV0d29ya2lkbGUnKTsKICAxMzkgfCAgICAgfQogIDE0MCB8CiAgMTQxIHwgICAgIGFzeW5jIGFwcGx5UHJvbW9Db2RlKCkgewogIDE0MiB8ICAgICAgICAgYXdhaXQgdGhpcy5wcm9tb2NvZGUoKS5maWxsKCdNSlpVQVQnKTsKICAxNDMgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS5nZXRCeVJvbGUoJ2J1dHRvbicsIHsgbmFtZTogJ0FwcGx5JyB9KS5jbGljaygpOwogIDE0NCB8CiAgMTQ1IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2Uud2FpdEZvclRpbWVvdXQoMjAwKTsKICAxNDYgfCAgICAgICAgIGF3YWl0IHRoaXMucGF5bm93YnRuKCkuc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpOwogIDE0NyB8CiAgMTQ4IHwgICAgICAgICBhd2FpdCBQcm9taXNlLmFsbChbCiAgMTQ5IHwgICAgICAgICAgICAgdGhpcy5wYWdlLndhaXRGb3JOYXZpZ2F0aW9uKHsgd2FpdFVudGlsOiAnbG9hZCcgfSksCiAgMTUwIHwgICAgICAgICAgICAgdGhpcy5wYXlub3didG4oKS5jbGljaygpLAogIDE1MSB8ICAgICAgICAgXSk7CiAgMTUyIHwgICAgIAogIDE1MyB8CiAgMTU0IHwgICAgCiAgMTU1IHwgICAgICAgIAogIDE1NiB8ICAgICAKICAxNTcgfCAgICAgICAgIC8vIGFzeW5jIHBheVdpdGhvdXRQcm9tb0NvZGUoKSB7CiAgMTU4IHwgICAgICAgICAvLyAgICAgYXdhaXQgdGhpcy5wYXlub3didG4uc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpOwogIDE1OSB8ICAgICAgICAgCiAgMTYwIHwgICAgICAgICAvLyAgICAgYXdhaXQgUHJvbWlzZS5hbGwoWwogIDE2MSB8ICAgICAgICAgLy8gICAgICAgdGhpcy5wYWdlLndhaXRGb3JOYXZpZ2F0aW9uKHsgd2FpdFVudGlsOiAnbG9hZCcgfSksCiAgMTYyIHwgICAgICAgICAvLyAgICAgICB0aGlzLnBheW5vd2J0bi5jbGljaygpLAogIDE2MyB8ICAgICAgICAgLy8gICAgIF0pOwogIDE2NCB8ICAgICAgICAgCiAgMTY1IHwgICAgICAgICAvLyAgICAgYXdhaXQgdGhpcy5lbnRlckNhcmREZXRhaWxzKCk7CiAgMTY2IHwgICAgICAgICAvLyAgIH0KICAxNjcgfAogIDE2OCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmdldEJ5Um9sZSgndGV4dGJveCcsIHsgbmFtZTogJ0NhcmQgTnVtYmVyJyB9KS5maWxsKCc0MTExMTExMTExMTExMTExJyk7CiAgMTY5IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2UuZ2V0QnlSb2xlKCd0ZXh0Ym94JywgeyBuYW1lOiAnTmFtZSBvbiBDYXJkJyB9KS5maWxsKCdUZXN0IFVzZXInKTsKICAxNzAgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS5nZXRCeVBsYWNlaG9sZGVyKCdNTS9ZWScpLmZpbGwoJzEyLzI2Jyk7CiAgMTcxIHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2UuZ2V0QnlSb2xlKCd0ZXh0Ym94JywgeyBuYW1lOiAnQ1ZWJyB9KS5maWxsKCcxMjMnKTsKICAxNzIgfAogIDE3MyB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmdldEJ5Um9sZSgnYnV0dG9uJywgeyBuYW1lOiAvcGxhY2Ugb3JkZXIvaSB9KS5jbGljaygpOwogIDE3NCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JMb2FkU3RhdGUoJ25ldHdvcmtpZGxlJyk7CiAgMTc1IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5wYWdlLmdldEJ5VGV4dCgvY29uZ3JhdHVsYXRpb25zIS9pKSkudG9CZVZpc2libGUoKTsKICAxNzYgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS53YWl0Rm9yVGltZW91dCgyMDAwKTsKICAxNzcgfCAgICAgICAgIGF3YWl0IHRoaXMuaG9tZXBhZ2VidG4oKS5jbGljaygpOwogIDE3OCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JMb2FkU3RhdGUoJ25ldHdvcmtpZGxlJyk7CiAgMTc5IHwgICAgIH0KICAxODAgfAogIDE4MSB8ICAgICBhc3luYyB1c2VkQ2Fyc0Rpc2NvdW50KCkgewogIDE4MiB8ICAgICAgICAgYXdhaXQgdGhpcy5kaXNjb3VudE5ld0NhcnMudXNlZENhcnNEaXNjb3VudCgpOwogIDE4MyB8ICAgICB9CiAgMTg0IHwKICAxODUgfCAgICAgYXN5bmMga21kZWF0aWxzKCk6IFByb21pc2U8Ym9vbGVhbj4gewogIDE4NiB8ICAgICAgICAgYXdhaXQgdGhpcy5rbWRyaXZlbigpLmZpbGwoJzIwMDAnKTsKICAxODcgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS53YWl0Rm9yVGltZW91dCgxMDAwKTsKICAxODggfCAgICAgICAgIGF3YWl0IHRoaXMucGFja2FnZWJ0bigpLmNsaWNrKCk7CiAgMTg5IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2Uud2FpdEZvckxvYWRTdGF0ZSgnbmV0d29ya2lkbGUnKTsKICAxOTAgfAogIDE5MSB8ICAgICAgICAgY29uc3QgaXNCbG9ja2VkID0gYXdhaXQgdGhpcy5jaGVja0ZvckJsb2NraW5nTWVzc2FnZXMoKTsKICAxOTIgfCAgICAgICAgIGlmIChpc0Jsb2NrZWQpIHsKICAxOTMgfCAgICAgICAgICAgICBjb25zb2xlLmxvZygi4puU77iPIFZlaGljbGUgYWxyZWFkeSByZWdpc3RlcmVkICh1c2VkIGNhcikuIFNraXBwaW5nIGZ1cnRoZXIgc3RlcHMuIik7CiAgMTk0IHwgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwogIDE5NSB8ICAgICAgICAgfQogIDE5NiB8CiAgMTk3IHwgICAgICAgICByZXR1cm4gdHJ1ZTsKICAxOTggfCAgICAgfQogIDE5OSB8CiAgMjAwIHwgICAgIGFzeW5jIGdvZ29Qcm9zaGllbGQoKSB7CiAgMjAxIHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2UubG9jYXRvcignaDEnKS5zY3JvbGxJbnRvVmlld0lmTmVlZGVkKCk7CiAgMjAyIHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5wYWdlLmxvY2F0b3IoJ2gxJykpLnRvSGF2ZVRleHQoJ1doYXQgaXMgR09HTyBQcm9zaGllbGQ/Jyk7CiAgMjAzIHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5wYWdlLmxvY2F0b3IoJ2JvZHknKSkudG9Db250YWluVGV4dCgnR09HTyBQcm9zaGllbGQgaXMgY29tcHJlaGVuc2l2ZSBleHRlbmRlZCB3YXJyYW50eSBwbGFuIGRlc2lnbiB0byBwcm90ZWN0IHlvdXInKTsKICAyMDQgfAogIDIwNSB8CiAgMjA2IHwgICAgIH0KICAyMDcgfAogIDIwOCB8CiAgMjA5IHwKICAyMTAgfCAgICAgYXN5bmMgc2tpcFByb21vY29kZSgpIHsKICAyMTEgfCAgICAgICAgIGF3YWl0IHRoaXMucGF5bm93YnRuKCkuc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpOwogIDIxMiB8ICAgICAgICAgYXdhaXQgdGhpcy5wYXlub3didG4oKS5jbGljaygpOwogIDIxMyB8ICAgICAgICAgLy9hd2FpdCB0aGlzLnBhY2thZ2VidG4oKS5jbGljaygpOwogIDIxNCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JMb2FkU3RhdGUoJ25ldHdvcmtpZGxlJyk7CiAgMjE1IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2Uud2FpdEZvclRpbWVvdXQoMzAwMCkKICAyMTYgfAo+IDIxNyB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmdldEJ5Um9sZSgndGV4dGJveCcsIHsgbmFtZTogJ0NhcmQgTnVtYmVyJyB9KS5maWxsKCc0MTExMTExMTExMTExMTExJyk7CiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4gRXJyb3I6IGxvY2F0b3IuZmlsbDogVGVzdCB0aW1lb3V0IG9mIDEyMDAwMG1zIGV4Y2VlZGVkLgogIDIxOCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmdldEJ5Um9sZSgndGV4dGJveCcsIHsgbmFtZTogJ05hbWUgb24gQ2FyZCcgfSkuZmlsbCgnVGVzdCBVc2VyJyk7CiAgMjE5IHwgICAgICAgICBhd2FpdCB0aGlzLnBhZ2UuZ2V0QnlQbGFjZWhvbGRlcignTU0vWVknKS5maWxsKCcxMi8yNicpOwogIDIyMCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLmdldEJ5Um9sZSgndGV4dGJveCcsIHsgbmFtZTogJ0NWVicgfSkuZmlsbCgnMTIzJyk7CiAgMjIxIHwKICAyMjIgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS5nZXRCeVJvbGUoJ2J1dHRvbicsIHsgbmFtZTogL3BsYWNlIG9yZGVyL2kgfSkuY2xpY2soKTsKICAyMjMgfCAgICAgICAgIGF3YWl0IHRoaXMucGFnZS53YWl0Rm9yTG9hZFN0YXRlKCduZXR3b3JraWRsZScpOwogIDIyNCB8ICAgICAgICAgYXdhaXQgdGhpcy5wYWdlLndhaXRGb3JUaW1lb3V0KDIwMDApOwogIDIyNSB8ICAgICAgICAgYXdhaXQgdGhpcy5ob21lcGFnZWJ0bigpLmNsaWNrKCk7CiAgMjI2IHwgICAgIH0KICAyMjcgfAogIDIyOCB8CiAgMjI5IHwgICAgIHByaXZhdGUgZXhwZWN0ZWRCZW5lZml0cyA9IFsKICAyMzAgfCAgICAgICAgICdCZXN0IGluIGNsYXNzIHdhcnJhbnR5IGNvdmVyYWdlIGZvciBuZXcgYW5kIHByZS1vd25lZCBjYXJzLicsCiAgMjMxIHwgICAgICAgICAnVG90YWwgdHJhbnNwYXJlbmN5IGluIHRlcm1zIG9mIGNvdmVyYWdlIGFuZCBjbGFpbXMgd2l0aCB6ZXJvIGRlZHVjdGlibGVzLicsCiAgMjMyIHwgICAgICAgICAnVmFyaWV0eSBpbiBjb3ZlcmFnZSBwbGFucyB0byBtZWV0IHlvdXIgcmVxdWlyZW1lbnRzLicsCiAgMjMzIHwgICAgICAgICAnS2luZ2RvbSB3aWRlIGhpZ2hseSB0cmFpbmVkIGFuZCBwcm9mZXNzaW9uYWwgbmV0d29yayBvZiB3YXJyYW50eSByZXBhaXIgZmFjaWxpdGllcy4nLAogIDIzNCB8ICAgICAgICAgJ1VwIHRvIDMgWWVhcnMgYW5kIFVubGltaXRlZCogS00gd2FycmFudHkgcGxhbnMuJwogIDIzNSB8ICAgICBdOwogIDIzNiB8ICAgICBhc3luYyB2ZXJpZnlCZW5lZml0c1NlY3Rpb25WaXNpYmxlKCkgewogIDIzNyB8ICAgICAgICAgYXdhaXQgdGhpcy5iZW5lZml0aGVhZGVyKCkuc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpOwogIDIzOCB8ICAgICAgICAgYXdhaXQgZXhwZWN0KHRoaXMuYmVuZWZpdGhlYWRlcigpKS50b0JlVmlzaWJsZSgpOwogIDIzOSB8ICAgICB9CiAgMjQwIHwKICAyNDEgfCAgICAgYXN5bmMgZ2V0QmVuZWZpdFRleHRzKCk6IFByb21pc2U8c3RyaW5nW10+IHsKICAyNDIgfCAgICAgICAgIHJldHVybiB0aGlzLmJlbmVmaXRJdGVtcygpLmFsbFRleHRDb250ZW50cygpOwogIDI0MyB8ICAgICB9CiAgMjQ0IHwKICAyNDUgfCAgICAgYXN5bmMgdmVyaWZ5QWxsQmVuZWZpdHNWaXNpYmxlKCkgewogIDI0NiB8ICAgICAgICAgY29uc3QgYWN0dWFsQmVuZWZpdHMgPSBhd2FpdCB0aGlzLmdldEJlbmVmaXRUZXh0cygpOwogIDI0NyB8ICAgICAgICAgZm9yIChsZXQgaSA9IDA7IGkgPCB0aGlzLmV4cGVjdGVkQmVuZWZpdHMubGVuZ3RoOyBpKyspIHsKICAyNDggfCAgICAgICAgICAgICBleHBlY3QoYWN0dWFsQmVuZWZpdHNbaV0pLnRvQ29udGFpbih0aGlzLmV4cGVjdGVkQmVuZWZpdHNbaV0pOwogIDI0OSB8ICAgICAgICAgfQogIDI1MCB8ICAgICB9CiAgMjUxIHwKICAyNTIgfAogIDI1MyB8ICAgICBhc3luYyB2YWxpZGF0ZUVsaWdpYmlsaXR5U2VjdGlvbigpIHsKICAyNTQgfCAgICAgICAgIGNvbnN0IGV4cGVjdGVkVGV4dHMgPSBbCiAgMjU1IHwgICAgICAgICAgICAgJ011c3QgYmUgYSBTYXVkaSByZWdpc3RlcmVkIHZlaGljbGUuJywKICAyNTYgfCAgICAgICAgICAgICAnTXVzdCBiZSBhIEdDQyBzcGVjaWZpY2F0aW9uIHZlaGljbGUuJywKICAyNTcgfCAgICAgICAgICAgICAnTXVzdCBiZSBlaXRoZXIgYSBwYXNzZW5nZXIgY2FyIG9yIGEgbGlnaHQgY29tbWVyY2lhbCB2ZWhpY2xlLicsCiAgMjU4IHwgICAgICAgICAgICAgJ011c3QgYmUgbGVzcyB0aGFuIDcgeWVhcnMgb2YgYWdlIGFuZCAxNTAsMDAwIGttIGRyaXZlbi4nLAogIDI1OSB8ICAgICAgICAgICAgICdNdXN0IGJlIGFuIEludGVybmFsIENvbWJ1c3Rpb24gRW5naW5lLCBFbGVjdHJpYyBvciBIeWJyaWQgdmVoaWNsZS4nCiAgMjYwIHwgICAgICAgICBdOwogIDI2MSB8CiAgMjYyIHwgICAgICAgICBhd2FpdCB0aGlzLnNlY3Rpb25UaXRsZSgpLnNjcm9sbEludG9WaWV3SWZOZWVkZWQoKTsKICAyNjMgfCAgICAgICAgIGF3YWl0IGV4cGVjdCh0aGlzLnNlY3Rpb25UaXRsZSgpKS50b0JlVmlzaWJsZSgpOwogIDI2NCB8CiAgMjY1IHwgICAgICAgICBjb25zdCBpdGVtcyA9IGF3YWl0IHRoaXMuY3JpdGVyaWFJdGVtcygpOwogIDI2NiB8CiAgMjY3IHwgICAgICAgICBmb3IgKGNvbnN0IGV4cGVjdGVkVGV4dCBvZiBleHBlY3RlZFRleHRzKSB7CiAgMjY4IHwgICAgICAgICAgICAgbGV0IGZvdW5kID0gZmFsc2U7CiAgMjY5IHwgICAgICAgICAgICAgY29uc3QgY291bnQgPSBhd2FpdCBpdGVtcy5jb3VudCgpOwogIDI3MCB8CiAgMjcxIHwgICAgICAgICAgICAgZm9yIChsZXQgaSA9IDA7IGkgPCBjb3VudDsgaSsrKSB7CiAgMjcyIHwgICAgICAgICAgICAgICAgIGNvbnN0IGl0ZW1UZXh0ID0gYXdhaXQgaXRlbXMubnRoKGkpLmlubmVyVGV4dCgpOwogIDI3MyB8ICAgICAgICAgICAgICAgICBpZiAoaXRlbVRleHQuaW5jbHVkZXMoZXhwZWN0ZWRUZXh0KSkgewogIDI3NCB8ICAgICAgICAgICAgICAgICAgICAgZm91bmQgPSB0cnVlOwogIDI3NSB8ICAgICAgICAgICAgICAgICAgICAgYnJlYWs7CiAgMjc2IHwgICAgICAgICAgICAgICAgIH0KICAyNzcgfCAgICAgICAgICAgICB9CiAgMjc4IHwKICAyNzkgfCAgICAgICAgICAgICBleHBlY3QoZm91bmQpLnRvQmVUcnV0aHkoKTsKICAyODAgfCAgICAgICAgIH0KICAyODEgfCAgICAgfQogIDI4MiB8CiAgMjgzIHwKICAyODQgfAogIDI4NSB8ICAgICBhc3luYyB2YWxpZGF0ZVNlY3Rpb250aXRsZSgpIHsKICAyODYgfCAgICAgICAgIGF3YWl0IHRoaXMuc2VjdGlvbnRpdGxlKCkuc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpCiAgMjg3IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5zZWN0aW9udGl0bGUoKSkudG9CZVZpc2libGUoKTsKICAyODggfCAgICAgICAgIGF3YWl0IGV4cGVjdCh0aGlzLnNlY3Rpb250aXRsZSgpKS50b0hhdmVUZXh0KCdQcm9jZXNzIHRvIEJ1eScpOwogIDI4OSB8ICAgICB9CiAgMjkwIHwKICAyOTEgfCAgICAgYXN5bmMgdmFsaWRhdGVDb250YWN0VXNTZWN0aW9uKCkgewogIDI5MiB8ICAgICAgICAgYXdhaXQgdGhpcy5jb250YWN0VXNIZWFkaW5nKCkuc2Nyb2xsSW50b1ZpZXdJZk5lZWRlZCgpCiAgMjkzIHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5jb250YWN0VXNIZWFkaW5nKCkpLnRvQmVWaXNpYmxlKCk7CiAgMjk0IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy53cml0ZVRvVXNMYWJlbCgpKS50b0hhdmVUZXh0KCdXcml0ZSBUbyBVcycpOwogIDI5NSB8ICAgICAgICAgYXdhaXQgZXhwZWN0KHRoaXMud3JpdGVUb1VzRW1haWwoKSkudG9IYXZlVGV4dCgnY2FyZUBnb2dvcHJvc2hpZWxkLmNvbScpOwogIDI5NiB8ICAgICAgICAgYXdhaXQgZXhwZWN0KHRoaXMuY2FsbFVzTGFiZWwoKSkudG9IYXZlVGV4dCgnQ2FsbCBVcycpOwogIDI5NyB8ICAgICAgICAgYXdhaXQgZXhwZWN0KHRoaXMuY2FsbFVzTnVtYmVyKCkpLnRvSGF2ZVRleHQoJzgwMDI0NDAyNTgnKTsKICAyOTggfCAgICAgICB9CiAgMjk5IHwgICAgIAogIDMwMCB8ICAgICAKICAzMDEgfCAgICAgYXN5bmMgdmFsaWRhdGVEb3dubG9hZEFwcFNlY3Rpb24oKSB7CiAgMzAyIHwgICAgICAgICBhd2FpdCB0aGlzLmRvd25sb2FkQXBwSGVhZGluZygpLnNjcm9sbEludG9WaWV3SWZOZWVkZWQoKQogIDMwMyB8ICAgICAgICAgYXdhaXQgZXhwZWN0KHRoaXMuZG93bmxvYWRBcHBIZWFkaW5nKCkpLnRvQmVWaXNpYmxlKCk7CiAgMzA0IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5kb3dubG9hZEFwcERlc2NyaXB0aW9uKCkpLnRvQmVWaXNpYmxlKCk7CiAgMzA1IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5nb29nbGVQbGF5SW1nKCkpLnRvQmVWaXNpYmxlKCk7CiAgMzA2IHwgICAgICAgICBhd2FpdCBleHBlY3QodGhpcy5hcHBTdG9yZUltZygpKS50b0JlVmlzaWJsZSgpOwogIDMwNyB8ICAgICAgIH0KICAzMDggfCB9ICAgIApgYGA="
-                        }
-                      ]
+                      "startTime": "2025-04-28T10:01:11.815Z",
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "aca81df1cf5bda2abdbb-cccec6806bb4837039b9",
-              "file": "services/extendedWarranty.spec.ts",
-              "line": 61,
-              "column": 6
+              "id": "4979def12ce868721910-c35504db22223e62bfb9",
+              "file": "sellCar.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "validate sell car Heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 240000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5666,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m --- Starting  test suite ---\n"
+                        },
+                        {
+                          "text": "✅ Current URL: https://liveuat.gogomotor.com/en\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Navigating to the Homepage and checking functionality of sell Car\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Checking the sell car heading\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m Test passed: validate sell car Heading\n"
+                        },
+                        {
+                          "text": "\u001b[90m--------------------------------------------\u001b[39m\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m --- Finished test suite ---\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-28T10:01:11.892Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4979def12ce868721910-e85e5fb2c2a0cbc2e9ab",
+              "file": "sellCar.spec.ts",
+              "line": 24,
+              "column": 9
+            },
+            {
+              "title": "Validate the sell Car Functionality using owner ID  and Sequence Number ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 240000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 66992,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m --- Starting  test suite ---\n"
+                        },
+                        {
+                          "text": "✅ Current URL: https://liveuat.gogomotor.com/en\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Navigating to the Homepage and checking functionality of sell Car\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Clicking on the sell car button\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Filling the Details\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Filling the kms driven details\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Uploading car image\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Car image uploaded successfully\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Filling the expected price\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Submitting a review message\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Waiting for success message to appear\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Success Message is visible\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m Test passed: Validate the sell Car Functionality using owner ID  and Sequence Number \n"
+                        },
+                        {
+                          "text": "\u001b[90m--------------------------------------------\u001b[39m\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m --- Finished test suite ---\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-28T10:01:11.834Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4979def12ce868721910-dce6b55dd84d41ad876b",
+              "file": "sellCar.spec.ts",
+              "line": 30,
+              "column": 9
+            },
+            {
+              "title": "Validate the sell car functionality by selecting Brand",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 240000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 53682,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m --- Starting  test suite ---\n"
+                        },
+                        {
+                          "text": "✅ Current URL: https://liveuat.gogomotor.com/en\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Navigating to the Homepage and checking functionality of sell Car\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Hovering on Buy and Sell Cars in Header\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Clicking on Sell My Car Link\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Clicking on the car brand image\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Selecting the car Year\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Filling the kms driven details\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Uploading car image\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Car image uploaded successfully\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Filling the expected price\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Submitting a review message\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Waiting for success message to appear\n"
+                        },
+                        {
+                          "text": "\u001b[34mℹ️ [INFO]\u001b[39m Success Message is visible\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m Test passed: Validate the sell car functionality by selecting Brand\n"
+                        },
+                        {
+                          "text": "\u001b[90m--------------------------------------------\u001b[39m\n"
+                        },
+                        {
+                          "text": "\u001b[32m✅ [SUCCESS]\u001b[39m --- Finished test suite ---\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-04-28T10:01:11.865Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4979def12ce868721910-beba716f07a9acc63f8c",
+              "file": "sellCar.spec.ts",
+              "line": 46,
+              "column": 9
             }
           ]
         }
@@ -193,11 +362,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-04-22T11:29:31.378Z",
-    "duration": 123005.92999999993,
-    "expected": 0,
+    "startTime": "2025-04-28T10:01:10.120Z",
+    "duration": 69231.646,
+    "expected": 4,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }

@@ -37,7 +37,9 @@ test.describe('Mojaz Report Test Cases', () => {
         await profile.wishlistIcon();
         await profile.transmissionType()
         await profile.wishlistname()
-       // await profile.deletewishlist();
+        // await profile.deletewishlist();
+        await profile.clickonLikk();
+        await profile.clickonheart();
         Logger.info('Wishlist functionality test completed')
     })
 

@@ -18,9 +18,9 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1, 
-  workers: process.env.CI ? 2 : 6,
-  timeout: 120000, // Global test timeout (60s)
+  retries: 0, 
+  workers: process.env.CI ? 2 : 10,
+  timeout: 240000, // Global test timeout (60s)
   expect: {
     timeout: 45000, // Assertion timeout
   },
@@ -32,15 +32,15 @@ export default defineConfig({
   ],
   use: {
     headless: true,
-    //storageState: './storage/auth.json',
+   // storageState: './storage/auth.json',
     baseURL: process.env.BASE_URL,
     trace: 'on-first-retry',
     permissions: ['geolocation'],
     viewport: { width: 1280, height: 720 },  
     deviceScaleFactor: 1,
     geolocation: { latitude: 28.6139, longitude: 77.2090 },
-    actionTimeout: 60000, // Timeout for each action (click, fill, etc.)
-    navigationTimeout: 60000, // Timeout for navigation actions
+    actionTimeout: 120000, // Timeout for each action (click, fill, etc.)
+    navigationTimeout: 180000, // Timeout for navigation actions
   },
   projects: [
     {

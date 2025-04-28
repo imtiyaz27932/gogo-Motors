@@ -49,6 +49,8 @@ export class UserProfile {
     private okbtn = () => this.page.getByRole('button', { name: 'OK' });
     private deleteWishlist = () => this.page.getByRole('button', { name: 'Delete' });
     private delteconfirmation = () => this.page.getByRole('button', { name: 'Yes' });
+    private clickonlink = () => this.page.getByRole('link', { name: 'Vehicles Found (0)' })
+    private clickonhearticon = () => this.page.locator('.w-\\[24px\\] > path').first()
 
 
     // Logout selectors
@@ -235,6 +237,20 @@ export class UserProfile {
         await this.page.waitForTimeout(1000);
     }
 
+    async clickonLikk() {
+        Logger.info('clicking on the vehicles found link');
+        await this.clickonlink().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000);
+    }
+
+    async clickonheart() {
+        Logger.info('Clicking on the heart icon');
+        await this.clickonhearticon().click();
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(2000)
+    }
+    
     async logout() {
         Logger.info('Clicking on Logout Button');
         await this.logoutbtn().click();

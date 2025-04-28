@@ -53,7 +53,12 @@ test.describe('Extended Warranty in Header Test Cases', () => {
 		await warranty.applyPromoCode();
 		Logger.info('✅ Promo code applied and payment completed');
 
+		Logger.info('Enter email details');
+		await warranty.enterEmail();
+	
 		Logger.info('🎉 New car warranty flow completed successfully');
+
+		
 	});
 
 

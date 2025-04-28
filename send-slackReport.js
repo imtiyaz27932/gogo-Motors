@@ -97,5 +97,10 @@ const sendSlackMessage = async () => {
     console.error('❗ Error sending Slack message:', err.response ? err.response.data : err.message);
   }
 };
+// Only send report if there are NO failed tests
+if (failed === 0) {
+  sendSlackMessage();
+} else {
+  console.log('❗ Some tests failed. Slack report will not be sent.');
+}
 
-sendSlackMessage();

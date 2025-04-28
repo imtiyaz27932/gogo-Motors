@@ -3,6 +3,8 @@
 
 import { Page, expect } from "@playwright/test";
 import { DiscountNewCars } from "../discountNewCarsPage";
+import { Logger } from "../../utils/logger";
+import { TIMEOUT } from "dns";
 
 export class ExtendedWarranty {
     private page: Page;
@@ -33,18 +35,22 @@ export class ExtendedWarranty {
     private criteriaItems = () => this.page.locator('div.flex.items-start.pb-4');
     private sectiontitle = () => this.page.getByRole('heading', { name: 'Process to Buy' })
     private contactUsHeading = () => this.page.locator('h2', { hasText: 'Contact Us' });
-    private writeToUsLabel = ()=> this.page.locator('p.text-lg', { hasText: 'Write To Us' });
-    private writeToUsEmail = ()=> this.page.locator('a[href^="mailto:"]'); 
+    private writeToUsLabel = () => this.page.locator('p.text-lg', { hasText: 'Write To Us' });
+    private writeToUsEmail = () => this.page.locator('a[href^="mailto:"]');
     private callUsLabel = () => this.page.locator('p.text-lg', { hasText: 'Call Us' });
     private callUsNumber = () => this.page.locator('p.text-xl', { hasText: '8002440258' });
-    private downloadAppHeading =  () => this.page.locator('h2', { hasText: 'Download our app for a more convenient experience!' });
-    private downloadAppDescription = ()=> this.page.locator('p', { hasText: 'Please visit your app store to download the app.' });
-    private  googlePlayLink =  () =>  this.page.locator('a[href*="play.google.com"]').first();
+    private downloadAppHeading = () => this.page.locator('h2', { hasText: 'Download our app for a more convenient experience!' });
+    private downloadAppDescription = () => this.page.locator('p', { hasText: 'Please visit your app store to download the app.' });
+    private googlePlayLink = () => this.page.locator('a[href*="play.google.com"]').first();
 
-    private googlePlayImg =  () =>this.page.locator('img[src*="google_play.png"]');
-    private ppStoreLink =   ()=> this.page.locator('a[href*="apps.apple.com"]:has(img[src*="app_store.png"])');
+    private googlePlayImg = () => this.page.locator('img[src*="google_play.png"]');
+    private ppStoreLink = () => this.page.locator('a[href*="apps.apple.com"]:has(img[src*="app_store.png"])');
 
-    private appStoreImg =   () => this.page.locator('img[src*="app_store.png"]');
+    private appStoreImg = () => this.page.locator('img[src*="app_store.png"]');
+    private emailaddress = () => this.page.getByRole('textbox', { name: 'Email Address' })
+    private proceedbtn = () => this.page.getByRole('button', { name: 'Proceed' })
+    private otpfiled = () => this.page.getByRole('textbox', { name: 'Please enter OTP' })
+    private verifybtn = () => this.page.getByRole('button', { name: 'Verify' })
 
     async ServiceTab() {
         await this.serviceTab().hover();
@@ -142,14 +148,8 @@ export class ExtendedWarranty {
         await this.promocode().fill('MJZUAT');
         await this.page.getByRole('button', { name: 'Apply' }).click();
 
-        await this.page.waitForTimeout(200);
-        await this.paynowbtn().scrollIntoViewIfNeeded();
-
-        await Promise.all([
-            this.page.waitForNavigation({ waitUntil: 'load' }),
-            this.paynowbtn().click(),
-        ]);
-    
+        await this.page.waitForTimeout(1000);
+      
 
    
        
@@ -165,17 +165,7 @@ export class ExtendedWarranty {
         //     await this.enterCardDetails();
         //   }
 
-        await this.page.getByRole('textbox', { name: 'Card Number' }).fill('4111111111111111');
-        await this.page.getByRole('textbox', { name: 'Name on Card' }).fill('Test User');
-        await this.page.getByPlaceholder('MM/YY').fill('12/26');
-        await this.page.getByRole('textbox', { name: 'CVV' }).fill('123');
-
-        await this.page.getByRole('button', { name: /place order/i }).click();
-        await this.page.waitForLoadState('networkidle');
-        await expect(this.page.getByText(/congratulations!/i)).toBeVisible();
-        await this.page.waitForTimeout(2000);
-        await this.homepagebtn().click();
-        await this.page.waitForLoadState('networkidle');
+      
     }
 
     async usedCarsDiscount() {
@@ -295,7 +285,7 @@ export class ExtendedWarranty {
         await expect(this.writeToUsEmail()).toHaveText('care@gogoproshield.com');
         await expect(this.callUsLabel()).toHaveText('Call Us');
         await expect(this.callUsNumber()).toHaveText('8002440258');
-      }
+    }
     
     
     async validateDownloadAppSection() {
@@ -304,5 +294,53 @@ export class ExtendedWarranty {
         await expect(this.downloadAppDescription()).toBeVisible();
         await expect(this.googlePlayImg()).toBeVisible();
         await expect(this.appStoreImg()).toBeVisible();
+    }
+    async enterEmail() {
+        await this.emailaddress().fill('portal@gogomotor.com');
+        await this.proceedbtn().click();
+        await this.page.waitForLoadState('networkidle');
+    
+        await this.otpfiled().fill('9461');
+        await this.verifybtn().click();
+        await this.page.waitForLoadState('networkidle');
+    
+        await this.paynowbtn().scrollIntoViewIfNeeded();
+        console.log("Clicking on Pay Now...");
+    
+      
+        await this.paynowbtn().click({ force: true });
+        Logger.info('Pay Now Button clicked successfully')
+        const navigationPromise = this.page.waitForURL('**/payment', {
+            timeout: 240000, 
+            waitUntil: 'load',
+        });
+        
+        try {
+            // Wait for the main element or elements that indicate the page is fully loaded
+            await Promise.all([
+                navigationPromise,
+                this.page.waitForSelector('text="Select Payment Method"', { timeout: 240000, state: 'visible' }), , // Adjust the selector accordingly
+            ]);
+        
+            // Additional checks like waiting for network idle state can be added if needed
+            await this.page.waitForLoadState('networkidle', { timeout: 240000 }); // This ensures no network requests are in progress
+        
+            console.log('Page has loaded successfully');
+        } catch (error) {
+            console.error('Failed to load the page:', error);
+        }
+        
+        await this.page.getByRole('textbox', { name: 'Card Number' }).fill('4111111111111111');
+        await this.page.getByRole('textbox', { name: 'Name on Card' }).fill('Test User');
+        await this.page.getByPlaceholder('MM/YY').fill('12/26');
+        await this.page.getByRole('textbox', { name: 'CVV' }).fill('123');
+    
+        await this.page.getByRole('button', { name: /place order/i }).click();
+        await this.page.waitForLoadState('networkidle');
+    
+        await expect(this.page.getByText(/congratulations!/i)).toBeVisible();
+    
+        await this.homepagebtn().click();
+        await this.page.waitForLoadState('networkidle');
       }
-}    
+    }

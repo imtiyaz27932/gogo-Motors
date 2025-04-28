@@ -5,6 +5,7 @@ import { expect } from '@playwright/test';
 import { COPYRIGHT_TEXT } from '../utils/footerConstants';
 
 
+test.use({ storageState: './storage/auth.json' });
 test.describe('Footer Test Cases', () => {
     let footerPage: FooterPage;
 

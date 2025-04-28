@@ -60,7 +60,7 @@ export class MajozReport {
     }
 
     async FillVinNumber() {
-        await this.enterVINnumber().fill('LSJA36E32LZ02795z');
+        await this.enterVINnumber().fill('LSJA36E32LZ027958');
         await this.page.waitForLoadState('networkidle')
         await this.getFreeReportBtn().click();
         await this.page.waitForLoadState('load');
