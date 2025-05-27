@@ -20,7 +20,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0, 
   workers: process.env.CI ? 2 : 10,
-  timeout: 240000, // Global test timeout (60s)
+  timeout: 140000, // Global test timeout (60s)
   expect: {
     timeout: 45000, // Assertion timeout
   },
@@ -32,9 +32,10 @@ export default defineConfig({
   ],
   use: {
     headless: true,
-   // storageState: './storage/auth.json',
+    storageState: './storage/auth.json',
     baseURL: process.env.BASE_URL,
     trace: 'on-first-retry',
+    locale: 'en-US',
     permissions: ['geolocation'],
     viewport: { width: 1280, height: 720 },  
     deviceScaleFactor: 1,

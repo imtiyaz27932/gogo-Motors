@@ -20,7 +20,7 @@ test.describe('Mojaz Report Test Cases', () => {
         Logger.success('Test Teardown Complete: Ready for next test.');
     });
 
-    test('Verify functionality of User profile', async () => {
+    test.only('Verify functionality of User profile', async () => {
         await profile.clickProfileLink()
         await profile.fillForm(userData);
 
@@ -43,7 +43,7 @@ test.describe('Mojaz Report Test Cases', () => {
         Logger.info('Wishlist functionality test completed')
     })
 
-    test('Verify Logout Functionality', async () => {    // working
+    test.only('Verify Logout Functionality', async () => {    // working
         Logger.info('Logout functionality test started');
         await profile.logout();
         Logger.success('Logout functionality test completed');

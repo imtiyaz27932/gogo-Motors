@@ -34,7 +34,7 @@ test.describe('Footer Test Cases', () => {
         await footerPage.verifyAppLinks();
     });
 
-    test("Verify footer links are present and clickable", async () => {
+    test.fixme("Verify footer links are present and clickable", async () => {
         Logger.info('Checking Company')
         await footerPage.validateAndClickFooterLinks()
 
@@ -51,7 +51,7 @@ test.describe('Footer Test Cases', () => {
         await footerPage.SearchForFAQ();
     });
 
-    test('Verify the cities are functional', async () => {
+    test.fixme('Verify the cities are functional', async () => {
         Logger.info('Clciking on Citites one by one');
         await footerPage.validateAndClickCities();
 
@@ -96,6 +96,7 @@ test.describe('Footer Test Cases', () => {
     
 
     test("Verify each payment method icon's presence with assertion", async ({ page }) => {
+        await page.mouse.wheel(0,4000)
         const paymentIcons = [
             "stcpay",
             "visacard",

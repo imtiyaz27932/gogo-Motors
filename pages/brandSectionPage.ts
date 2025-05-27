@@ -9,10 +9,11 @@ export class BrandPage {
     constructor(page: Page) {
         this.page = page;
         this.brandImages = page.locator('.grid.grid-cols-10 img');
-        this.seeAllLink = this.page.getByRole('link', { name: 'See all' })
+        this.seeAllLink = page.locator('//a[@href="/en/new-cars" and normalize-space(text())="See all"]');
     }
 
     async getBrandCount() {
+        await this.brandImages.first().waitFor({ state: 'visible', timeout: 10000 });
         return await this.brandImages.count();
     }
 
@@ -21,6 +22,7 @@ export class BrandPage {
         const brandInfoList: { alt: string; locator: Locator }[] = [];
         for (let i = 0; i < count; i++) {
             const brandImg = this.brandImages.nth(i);
+            await brandImg.waitFor({ state: 'visible', timeout: 10000 });
             brandInfoList.push({
                 alt: await brandImg.getAttribute('alt') ?? `Brand ${i + 1}`,
                 locator: brandImg,
@@ -30,18 +32,24 @@ export class BrandPage {
     }
 
     async isSeeAllVisible() {
-        return await this.seeAllLink.isVisible();
+        try {
+            await this.seeAllLink.waitFor({ state: 'visible', timeout: 10000 });
+            return await this.seeAllLink.isVisible();
+        } catch {
+            return false;
+        }
     }
 
     async clickSeeAll() {
-        await this.seeAllLink.scrollIntoViewIfNeeded()
-        await this.seeAllLink.waitFor({ state: 'visible' });
+        await this.seeAllLink.scrollIntoViewIfNeeded();
+        await this.seeAllLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.seeAllLink.click();
-        await this.page.waitForLoadState('networkidle')
-
+        // Wait for navigation or a specific element on the new page if possible
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async isImageBroken(locator: Locator) {
+        await locator.waitFor({ state: 'visible', timeout: 10000 });
         return await locator.evaluate(
             (img: HTMLImageElement) => img.naturalWidth === 0 || img.naturalHeight === 0
         );
@@ -53,12 +61,17 @@ export class BrandPage {
         const brands = await this.getAllBrandInfo();
 
         for (const brand of brands) {
-            const isBroken = await this.isImageBroken(brand.locator);
-            if (isBroken) {
-                brokenImages.push(brand.alt || 'Unnamed brand');
-                await brand.locator.screenshot({
-                    path: `test-results/screenshots/${brand.alt?.replace(/\s+/g, '_')}-broken.png`,
-                });
+            try {
+                const isBroken = await this.isImageBroken(brand.locator);
+                if (isBroken) {
+                    brokenImages.push(brand.alt || 'Unnamed brand');
+                    await brand.locator.screenshot({
+                        path: `test-results/screenshots/${brand.alt?.replace(/\s+/g, '_')}-broken.png`,
+                    });
+                }
+            } catch (err) {
+                // Log and continue with the next image
+                console.warn(`Error checking image for brand "${brand.alt}": ${err}`);
             }
         }
         return brokenImages;

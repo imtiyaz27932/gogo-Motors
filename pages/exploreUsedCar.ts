@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { scrollSmoothly } from '../utils/scrollWheel';
-import { watch } from 'fs-extra';
+
 
 export class LocationPage {
     readonly page: Page;

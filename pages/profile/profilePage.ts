@@ -72,75 +72,73 @@ export class UserProfile {
     }
     async fillForm(data: any) {
         Logger.info('Filling First Name');
+        await this.firstName().waitFor({ state: 'visible', timeout: 5000 });
         await this.firstName().fill('imtiyaz');
-        await this.page.waitForTimeout(1000);
-    
-        Logger.info('Filling Middle Name');
-        await this.middleName().fill(data.middleName);
-        await this.page.waitForTimeout(1000);
-    
-        Logger.info('Filling Last Name');
-        await this.lastName().fill(data.lastName);
-    
-        Logger.info('Filling Address Line 1');
-        await this.addressLine1().fill(data.addressLine1);
-        await this.page.waitForTimeout(1000);
-    
-        Logger.info('Filling Address Line 2');
-        await this.addressLine2().fill(data.addressLine2);
-        await this.page.waitForTimeout(1000);
-    
-        Logger.info('Selecting Country');
-        await this.country().filter({ hasText: /^Kingdom of Saudi Arabia$/ }).nth(1);
-    
-        // ---------- Region ----------
-        Logger.info('Checking if Region is already selected');
-        const selectedRegion = await this.page.locator('div').filter({ hasText: 'Southern Region' }).first().isVisible();
-    
-        if (!selectedRegion) {
-            Logger.info('Selecting Region');
-            await this.region().click();
-            await this.page.waitForTimeout(1000);
-            await this.page.getByText('Southern Region').click();
-            await this.page.waitForTimeout(1000);
-        } else {
-            Logger.info('Region already selected, skipping...');
-        }
-    
-        // ---------- City ----------
-        Logger.info('Checking if City is already selected');
-        const selectedCity = await this.page.locator('div').filter({ hasText: 'Abu Arish' }).first().isVisible();
-    
-        if (!selectedCity) {
-            Logger.info('Selecting City');
-            await this.city().click();
-            await this.page.waitForTimeout(1000);
-            await this.page.getByText('Abu Arish').click();
-            await this.page.waitForTimeout(1000);
-        } else {
-            Logger.info('City already selected, skipping...');
-        }
-    
-        Logger.info('Filling Zip Code');
-        await this.zip().fill('22233');
-        await this.page.waitForTimeout(1000);
-    
-        Logger.info('Filling Profession');
-        await this.profession().fill(data.profession);
-        await this.page.waitForTimeout(3000)
-    
-        
-        // Logger.info('Select Gender');
-        // await this.gender().scrollIntoViewIfNeeded();
-        // await this.gender().click();
-        // await this.page.waitForTimeout(2000);
-    
-        Logger.info('Click on Save Changes Button');
-        await this.saveChangesbtn().click();
-        await this.page.waitForTimeout(2000);
-        await this.page.getByText('OK', { exact: true }).click();
 
-        await this.page.waitForTimeout(2000);
+        Logger.info('Filling Middle Name');
+        await this.middleName().waitFor({ state: 'visible', timeout: 5000 });
+        await this.middleName().fill(data.middleName);
+
+        Logger.info('Filling Last Name');
+        await this.lastName().waitFor({ state: 'visible', timeout: 5000 });
+        await this.lastName().fill(data.lastName);
+
+        Logger.info('Filling Address Line 1');
+        await this.addressLine1().waitFor({ state: 'visible', timeout: 5000 });
+        await this.addressLine1().fill(data.addressLine1);
+
+        Logger.info('Filling Address Line 2');
+        await this.addressLine2().waitFor({ state: 'visible', timeout: 5000 });
+        await this.addressLine2().fill(data.addressLine2);
+
+        // Logger.info('Selecting Country');
+        // const countryOption = this.country().filter({ hasText: /^Kingdom of Saudi Arabia$/ }).nth(1);
+        // await countryOption.waitFor({ state: 'visible', timeout: 5000 });
+        // await countryOption.click();
+
+        // // ---------- Region ----------
+        // Logger.info('Checking if Region is already selected');
+        // const selectedRegion = await this.page.locator('div').filter({ hasText: 'Southern Region' }).first().isVisible();
+
+        // if (!selectedRegion) {
+        //     Logger.info('Selecting Region');
+        //     await this.region().waitFor({ state: 'visible', timeout: 5000 });
+        //     await this.region().click();
+        //     const regionOption = this.page.getByText('Southern Region');
+        //     await regionOption.waitFor({ state: 'visible', timeout: 5000 });
+        //     await regionOption.click();
+        // } else {
+        //     Logger.info('Region already selected, skipping...');
+        // }
+
+        // ---------- City ----------
+        // Logger.info('Checking if City is already selected');
+        // const selectedCity = await this.page.locator('div').filter({ hasText: 'Abu Arish' }).first().isVisible();
+
+        // if (!selectedCity) {
+        //     Logger.info('Selecting City');
+        //     await this.city().waitFor({ state: 'visible', timeout: 5000 });
+        //     await this.city().click();
+        //     const cityOption = this.page.getByText('Abu Arish');
+        //     await cityOption.waitFor({ state: 'visible', timeout: 5000 });
+        //     await cityOption.click();
+        // } else {
+        //     Logger.info('City already selected, skipping...');
+        // }
+
+        Logger.info('Filling Zip Code');
+        await this.zip().waitFor({ state: 'visible', timeout: 5000 });
+        await this.zip().fill('22233');
+
+        Logger.info('Filling Profession');
+        await this.profession().waitFor({ state: 'visible', timeout: 5000 });
+        await this.profession().fill(data.profession);
+
+        Logger.info('Click on Save Changes Button');
+        await this.saveChangesbtn().waitFor({ state: 'visible', timeout: 5000 });
+        await expect(this.saveChangesbtn()).toBeEnabled();
+        await this.saveChangesbtn().click();
+        Logger.success('Profile form filled and saved successfully.');
     }
     
 

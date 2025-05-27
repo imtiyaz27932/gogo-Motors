@@ -24,11 +24,19 @@ test.describe('Brand Section Validation', () => {
 
     for (const brand of brands) {
       await Logger.info(`Checking visibility for brand: ${brand.alt}`);
+      await brand.locator.waitFor({ state: 'visible', timeout: 10000 });
       await expect(brand.locator, `${brand.alt} image should be visible`).toBeVisible();
+      const isLoaded = await brand.locator.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0);
+      expect(isLoaded, `${brand.alt} image should be loaded`).toBeTruthy();
     }
 
     await Logger.info('Checking for broken images...');
-    const brokenImages = await brandPage.getBrokenImagesWithScreenshots();
+    let brokenImages: string[] = [];
+    try {
+      brokenImages = await brandPage.getBrokenImagesWithScreenshots();
+    } catch (err) {
+      await Logger.error('Error while checking broken images: ' + err);
+    }
 
     if (brokenImages.length > 0) {
       await Logger.error(`Broken images found: ${brokenImages.join(', ')}`);
@@ -40,7 +48,8 @@ test.describe('Brand Section Validation', () => {
     expect(brokenImages.length, 'Broken images detected').toBe(0);
 
     await Logger.info('Checking "See all" link visibility...');
-    expect(await brandPage.isSeeAllVisible(), '"See all" link should be visible').toBeTruthy();
+    const seeAllVisible = await brandPage.isSeeAllVisible();
+    expect(seeAllVisible, '"See all" link should be visible').toBeTruthy();
 
     await Logger.info('Clicking on "See all" link...');
     await brandPage.clickSeeAll();

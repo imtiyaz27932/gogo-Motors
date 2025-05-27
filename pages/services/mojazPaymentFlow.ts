@@ -56,8 +56,8 @@ export class PaymentFlow {
 
 
     //Select Car Buttons
-    private selectcar = () => this.page.getByRole('img', { name: 'TOYOTA' })
-    private selectyear = () => this.page.getByRole('listitem').filter({ hasText: '2024' })
+    private selectcar = () => this.page.getByRole('img', { name: 'TOYOTA', exact: true })
+    private selectyear = () => this.page.locator('role=listitem[name="2024"]')
     private selectcar1 = () => this.page.getByText('FORTUNER')
     private selectautomatic = () => this.page.getByRole('listitem').filter({ hasText: 'SAutomatic' })
 
@@ -172,13 +172,13 @@ export class PaymentFlow {
     async clickSelectCar() {
         Logger.info('Clicking on Select Car...');
         await this.selectcar().click();
-        await this.page.waitForLoadState('networkidle');
+       await this.page.waitForTimeout(3000)
     }
 
     async clickSelectYear() {
         Logger.info('Clicking on Select Year...');
         await this.selectyear().click();
-        await this.page.waitForLoadState('networkidle')
+        await this.page.waitForTimeout(3000)
 
     }
     async clickSelectAutomatic() {
