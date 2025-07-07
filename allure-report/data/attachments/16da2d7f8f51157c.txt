@@ -1,0 +1,1 @@
+⚠️ [WARN] Test finished with status: timedOut - E2E flow: Car Tinting flow for SUV

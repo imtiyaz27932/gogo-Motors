@@ -1,0 +1,1 @@
+❌ [ERROR] Test failed: Verify hero image is visible on desktop

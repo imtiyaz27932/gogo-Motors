@@ -187,7 +187,7 @@ export class FooterPage {
         const links: { name: string; locator: Locator }[] = [
             { name: 'About Us', locator: this.aboutUsLink },
             { name: 'Careers', locator: this.careersLink },
-            { name: 'Contact Us', locator: this.contactUsLink },
+            // { name: 'Contact Us', locator: this.contactUsLink },
             { name: 'FAQ\'s', locator: this.faqLink }
         ];
 

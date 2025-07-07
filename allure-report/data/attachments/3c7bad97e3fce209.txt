@@ -1,0 +1,9 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+ℹ️ [INFO] Navigating to Car Tinting page
+ℹ️ [INFO] Validating "Perfect Fit, Every Time" section heading
+✅ [SUCCESS] Car Tinting page opened successfully
+ℹ️ [INFO] Validating presence of all 3 step titles
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

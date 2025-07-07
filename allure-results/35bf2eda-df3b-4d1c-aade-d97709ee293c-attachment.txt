@@ -1,2 +1,0 @@
-✅ Current URL: https://liveuat.gogomotor.com/en
-All header tabs are clickable and navigated to the correct page.

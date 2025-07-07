@@ -1,0 +1,12 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+ℹ️ [INFO] Navigating to Car Tinting page
+ℹ️ [INFO] Verifying "GoGo Motor's promise" section
+✅ [SUCCESS] Car Tinting page opened successfully
+ℹ️ [INFO] Verified tag: Trusted Expertise
+ℹ️ [INFO] Verified tag: Top-Quality Materials
+ℹ️ [INFO] Verified tag: Customer First
+✅ [SUCCESS] Test passed: Validate GoGo Promise section
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

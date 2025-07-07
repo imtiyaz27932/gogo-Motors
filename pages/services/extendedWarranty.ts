@@ -82,7 +82,7 @@ export class ExtendedWarranty {
 
 
 
-  
+
 
 
 
@@ -113,50 +113,50 @@ export class ExtendedWarranty {
     }
 
     async enterVINDetails() {
-    Logger.info('Filling VIN details...');
-    const vinField = this.vinDetailsfields('eg: 1HGBH41JXH1000000');
-    await vinField.waitFor({ state: 'visible', timeout: 10000 });
-    await vinField.fill(vinDetails.VIN);
+        Logger.info('Filling VIN details...');
+        const vinField = this.vinDetailsfields('eg: 1HGBH41JXH1000000');
+        await vinField.waitFor({ state: 'visible', timeout: 10000 });
+        await vinField.fill(vinDetails.VIN);
 
-    const dateField = this.vinDetailsfields('eg: MM/DD/YYYY');
-    await dateField.waitFor({ state: 'visible', timeout: 10000 });
-    await dateField.click();
+        const dateField = this.vinDetailsfields('eg: MM/DD/YYYY');
+        await dateField.waitFor({ state: 'visible', timeout: 10000 });
+        await dateField.click();
 
-    await this.page.waitForSelector('.rmdp-calendar', { state: 'visible', timeout: 10000 });
-    const today = new Date();
-    const currentDay = today.getDate().toString();
-    const calendarDay = this.page.locator('.rmdp-calendar').locator(`text="${currentDay}"`);
-    await calendarDay.waitFor({ state: 'visible', timeout: 5000 });
-    await calendarDay.click();
+        await this.page.waitForSelector('.rmdp-calendar', { state: 'visible', timeout: 10000 });
+        const today = new Date();
+        const currentDay = today.getDate().toString();
+        const calendarDay = this.page.locator('.rmdp-calendar').locator(`text="${currentDay}"`);
+        await calendarDay.waitFor({ state: 'visible', timeout: 5000 });
+        await calendarDay.click();
 
-    const kmField = this.vinDetailsfields('eg: 42000');
-    await kmField.waitFor({ state: 'visible', timeout: 10000 });
-    await kmField.fill(kilometerDetails.endKilometer);
+        const kmField = this.vinDetailsfields('eg: 42000');
+        await kmField.waitFor({ state: 'visible', timeout: 10000 });
+        await kmField.fill(kilometerDetails.endKilometer);
 
-    const confirmBtn = this.buttonNames('Confirm');
-    await confirmBtn.waitFor({ state: 'visible', timeout: 10000 });
-    await confirmBtn.click();
+        const confirmBtn = this.buttonNames('Confirm');
+        await confirmBtn.waitFor({ state: 'visible', timeout: 10000 });
+        await confirmBtn.click();
 
-    Logger.success('VIN details entered and confirmed.');
-}
+        Logger.success('VIN details entered and confirmed.');
+    }
 
-   async NationalID() {
-    Logger.info('Filling National ID and DOB...');
-    const nationalIdField = this.additionalDetailsFields('customerNationalId');
-    await nationalIdField.waitFor({ state: 'visible', timeout: 10000 });
-    await nationalIdField.fill(customerDetails.nationalId);
+    async NationalID() {
+        Logger.info('Filling National ID and DOB...');
+        const nationalIdField = this.additionalDetailsFields('customerNationalId');
+        await nationalIdField.waitFor({ state: 'visible', timeout: 10000 });
+        await nationalIdField.fill(customerDetails.nationalId);
 
-    const dobField = this.additionalDetailsFields('dateOfBirth');
-    await dobField.waitFor({ state: 'visible', timeout: 10000 });
-    await dobField.fill(customerDetails.dateOfBirth);
+        const dobField = this.additionalDetailsFields('dateOfBirth');
+        await dobField.waitFor({ state: 'visible', timeout: 10000 });
+        await dobField.fill(customerDetails.dateOfBirth);
 
-    const confirmBtn = this.buttonNames('Confirm');
-    await confirmBtn.scrollIntoViewIfNeeded();
-    await confirmBtn.waitFor({ state: 'visible', timeout: 10000 });
-    await confirmBtn.click();
+        const confirmBtn = this.buttonNames('Confirm');
+        await confirmBtn.scrollIntoViewIfNeeded();
+        await confirmBtn.waitFor({ state: 'visible', timeout: 10000 });
+        await confirmBtn.click();
 
-    Logger.success('National ID and DOB submitted.');
-}
+        Logger.success('National ID and DOB submitted.');
+    }
 
     async KmDetails() {
         await this.inputBykilometers('kms_driven').fill(kilometerDetails.kilometerDrivern);
@@ -294,38 +294,44 @@ export class ExtendedWarranty {
     }
 
     async enterEmail() {
-        await this.emailDetailsFields('Email Address').fill(emailDetails.email);
-        Logger.info('Entered email address.');
-      
-        await this.buttonNames('Proceed').click();
-        await this.page.waitForTimeout(2000);
-      
-        await this.emailDetailsFields('Please enter OTP').fill(emailDetails.otp);
-        Logger.info('Entered OTP.');
-      
-        await this.buttonNames('Verify').click();
-        await this.page.waitForTimeout(5000);
-      
+        // await this.emailDetailsFields('Email Address').fill(emailDetails.email);
+        // Logger.info('Entered email address.');
+
+        // await this.buttonNames('Proceed').click();
+        // await this.page.waitForTimeout(2000);
+
+        // await this.emailDetailsFields('Please enter OTP').fill(emailDetails.otp);
+        // Logger.info('Entered OTP.');
+
+        // await this.buttonNames('Verify').click();
+        // await this.page.waitForTimeout(5000);
+
         await this.page.mouse.wheel(0, 400);
-      
+
         Logger.info('Clicking on Pay Now...');
         await this.page.getByRole('button', { name: 'Pay Now' }).waitFor({ state: 'visible' });
-      
+
         const cardUtils = new CardUtils(this.page);
-      
+
         await this.page.getByRole('button', { name: 'Pay Now' }).click();
         await this.page.waitForTimeout(10000);
-      
+
         await cardUtils.fillTestCardDetails();
         await this.page.mouse.wheel(0, 500);
         await this.page.waitForTimeout(4000)
         await this.buttonNames('Pay now').scrollIntoViewIfNeeded();
         await this.buttonNames('Pay now').click();
-        await this.page.waitForTimeout(5000);
-       
-      
-        
-        await this.page.waitForLoadState('networkidle', { timeout: 240000 });
+         await this.page.waitForTimeout(5000);
+        await this.page.getByRole('button', { name: 'Pay Now' }).click()
+        //await this.page.waitForTimeout(8000);
+
+
+
+        // await this.page.waitForLoadState('networkidle', { timeout: 240000 });
+        await this.page.locator('a:has-text("Complete Now ->")').scrollIntoViewIfNeeded()
+        await this.page.waitForTimeout(2000)
+        await this.page.locator('a:has-text("Complete Now ->")').click();
+        await this.page.waitForTimeout(3000);
         await this.page.locator('a:has-text("Complete Now ->")').click();
 
         await this.page.waitForTimeout(4000);
@@ -341,12 +347,17 @@ export class ExtendedWarranty {
 
     // Mobile methods
     async humberginiclick() {
+        //await this.page.getByRole('button', { name: 'mobile menu toggle' }).first().click()
+        await this.page.waitForTimeout(3000)
         await this.buttonNames('mobile menu toggle').click()
-        //await this.page.waitForLoadState('networkidle')
+
     }
 
     async services() {
+        await this.page.waitForTimeout(3000)
         await this.buttonNames('Services').first().click();
+        await this.page.waitForTimeout(3000)
+
     }
 
     async clickonExtendedWarranty() {
@@ -480,31 +491,31 @@ export class ExtendedWarranty {
     async CheckEligibility(): Promise<void> {
         Logger.info('Scrolling to the "Check Eligibility Now" button');
         const checkEligibilityButton = this.buttonNames('Check Eligibility Now');
-    
+
         // Ensure the button is visible and scroll into view
         await checkEligibilityButton.scrollIntoViewIfNeeded();
         await expect(checkEligibilityButton).toBeVisible({ timeout: 5000 });
-    
+
         Logger.info('Clicking on the "Check Eligibility Now" button');
         await checkEligibilityButton.click();
-    
+
         // Wait for the page to process the action
         await this.page.waitForLoadState('networkidle');
         Logger.success('"Check Eligibility Now" button clicked successfully');
     }
-    
+
     async exploreUsedCars(): Promise<void> {
         Logger.info('Scrolling to the "Explore Used Cars" button');
-        
-    
+
+
         // Ensure the button is visible and scroll into view
         await this.usedcarbtn().scrollIntoViewIfNeeded();
         await this.page.waitForLoadState('networkidle')
         await expect(this.usedcarbtn()).toBeVisible({ timeout: 10000 });
-    
+
         Logger.info('Clicking on the "Explore Used Cars" button');
         await this.usedcarbtn().click();
-    
+
         // Wait for the page to navigate to the expected URL
         await this.page.waitForLoadState('networkidle');
         await expect(this.page).toHaveURL(/\/used-cars\/riyadh-surveyed/, { timeout: 10000 });
@@ -513,17 +524,17 @@ export class ExtendedWarranty {
 
     async buyExtendedWarranty(): Promise<void> {
         Logger.info('Scrolling to the "Buy Extended Warranty" button');
-    
+
         // Locate the "Buy Extended Warranty" button
         const buyExtendedWarrantyButton = this.page.locator('span').filter({ hasText: 'Buy Extended Warranty' });
-    
+
         // Ensure the button is visible and scroll into view
         await buyExtendedWarrantyButton.scrollIntoViewIfNeeded();
         await buyExtendedWarrantyButton.waitFor({ state: 'visible' });
-    
+
         Logger.info('Clicking on the "Buy Extended Warranty" button');
         await buyExtendedWarrantyButton.click();
-    
+
         // Wait for the page to process the action and navigate
         Logger.success('"Buy Extended Warranty" button clicked successfully');
         Logger.success('Navigated to the Extended Warranty Details page successfully');
@@ -531,26 +542,26 @@ export class ExtendedWarranty {
 
     async byNowProcess(): Promise<void> {
         Logger.info('Locating and clicking the "Buy Now" button');
-    
+
         // Locate and ensure the "Buy Now" button is visible
         const buyNowButton = this.buttonNames('Buy Now');
         await buyNowButton.scrollIntoViewIfNeeded();
         await buyNowButton.waitFor({ state: 'visible' });
-    
+
         // Click the "Buy Now" button
         await buyNowButton.click();
         Logger.success('"Buy Now" button clicked successfully');
-    
+
         // Wait for the "Proceed to Checkout" button to appear
         Logger.info('Waiting for the "Proceed to Checkout" button to become visible');
         const proceedToCheckoutButton = this.buttonNames('Proceed to Checkout');
         await proceedToCheckoutButton.scrollIntoViewIfNeeded();
         await proceedToCheckoutButton.waitFor({ state: 'visible' });
-    
+
         // Click the "Proceed to Checkout" button
         await proceedToCheckoutButton.click();
         Logger.success('"Proceed to Checkout" button clicked successfully');
-    
+
         // Wait for the page to process the action
         await this.page.waitForLoadState('networkidle');
         Logger.success('Buy Now process completed successfully');

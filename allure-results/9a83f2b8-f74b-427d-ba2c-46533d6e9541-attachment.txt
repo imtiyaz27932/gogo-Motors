@@ -1,0 +1,14 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] Navigating to Car Tinting page
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+✅ [SUCCESS] Car Tinting page opened successfully
+ℹ️ [INFO] Verifying tint film specs section
+ℹ️ [INFO] Verified glare reduction heading
+ℹ️ [INFO] Verified tint description text
+ℹ️ [INFO] Verified all 8 performance metric lines
+ℹ️ [INFO] Verified 5 tint shade images
+ℹ️ [INFO] Verified footer line with MIL, UV, IR specs
+✅ [SUCCESS] Test passed: Validate Tint Film Specs section
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

@@ -1,0 +1,50 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects and navigating to the buy used cars section
+ℹ️ [INFO] Hovering over the "Buy & Sell Used Cars" tab...
+✅ [SUCCESS] Hovered on "Buy & Sell Used Cars" tab successfully.
+ℹ️ [INFO] ➡ Clicking on Sell With Fastlane link
+✅ [SUCCESS] ✅ Clicked on Sell With Fastlane link
+✅ [SUCCESS] ✅ Navigated to Sell With Fastlane page
+ℹ️ [INFO] ✅ Found 0 car brand cards.
+ℹ️ [INFO] clicking on view all Brands link in brand section
+ℹ️ [INFO] Link clicked and data fetched succesfully
+ℹ️ [INFO] Selecting car details: Brand=TOYOTA, Year=2024, Model=FORTUNER, Variant=SAutomatic, City=Riyadh
+✅ [SUCCESS] Brand "TOYOTA" selected.
+✅ [SUCCESS] Model year "2024" selected.
+✅ [SUCCESS] Car model "FORTUNER" selected.
+✅ [SUCCESS] Variant "SAutomatic" selected.
+✅ [SUCCESS] City "Riyadh" selected.
+ℹ️ [INFO] Entering KMs driven
+✅ [SUCCESS] KMs entered.
+ℹ️ [INFO] Clicking Continue
+✅ [SUCCESS] Clicked Continue button.
+ℹ️ [INFO] Uploading car images...
+✅ [SUCCESS] Cover image uploaded.
+✅ [SUCCESS] Right side image uploaded.
+✅ [SUCCESS] Left side image uploaded.
+✅ [SUCCESS] Front view image uploaded.
+✅ [SUCCESS] Rear view image uploaded.
+ℹ️ [INFO] Clicking Continue
+✅ [SUCCESS] Clicked Continue button.
+ℹ️ [INFO] Entering the expected price
+✅ [SUCCESS] Expected price entered.
+ℹ️ [INFO] Clicking Submit button
+✅ [SUCCESS] Clicked Submit.
+ℹ️ [INFO] Clicking on Paynow Button
+ℹ️ [INFO] Paynow button clicked
+ℹ️ [INFO] Entering card details
+ℹ️ [INFO] Filling test card details inside iframe fields...
+ℹ️ [INFO] Filled card number.
+ℹ️ [INFO] Filled name on card.
+ℹ️ [INFO] Filled expiration date.
+ℹ️ [INFO] Filled security code.
+ℹ️ [INFO] Filling address details...
+ℹ️ [INFO] Filled address.
+ℹ️ [INFO] Filled city.
+ℹ️ [INFO] Filled postal code.
+ℹ️ [INFO] All card and address details filled successfully.
+✅ [SUCCESS] Roadside Assistance purchased successfully
+✅ [SUCCESS] Test passed: Verify E2E flow of Sell with FastLane through view all Brands links
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

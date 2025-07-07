@@ -1,0 +1,6 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+ℹ️ [INFO] Navigating to Car Tinting page
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

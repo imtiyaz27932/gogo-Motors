@@ -1,0 +1,226 @@
+# Test info
+
+- Name: Car Tinting - Mobile Web >> Validate GoGo Promise section
+- Location: D:\gogomotor\tests\CarTinting\windowTinting.spec.ts:40:9
+
+# Error details
+
+```
+Error: Timed out 45000ms waiting for expect(locator).toBeVisible()
+
+Locator: locator('text=GoGo Motor\'s promise')
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 45000ms
+  - waiting for locator('text=GoGo Motor\'s promise')
+
+    at CarTinting.verifyGogoPromiseSection (D:\gogomotor\pages\CarTinting\tinting.ts:476:45)
+    at D:\gogomotor\tests\CarTinting\windowTinting.spec.ts:41:23
+```
+
+# Page snapshot
+
+```yaml
+- banner:
+  - link:
+    - /url: /en
+    - img
+  - button "Switch to Arabic":
+    - img "Arabic icon"
+    - text: عربى
+  - navigation "Global": New Cars Buy & Sell Used Cars Deals Services
+- main:
+  - img "hero"
+  - img "hero car"
+  - img "hero car glass"
+  - img "hero"
+  - img "hero"
+  - paragraph
+  - img
+  - paragraph: "800"
+  - button
+  - img
+  - img
+  - img
+  - img "flower-left"
+  - paragraph
+  - img "flower-right"
+  - img
+  - paragraph
+  - img
+  - paragraph
+  - img
+  - paragraph
+  - paragraph
+  - img
+```
+
+# Test source
+
+```ts
+  376 |     const dayCards = this.page.locator('label >> input[name="eachDay"]');
+  377 |     const count = await dayCards.count();
+  378 |
+  379 |     for (let i = 0; i < count; i++) {
+  380 |       const input = dayCards.nth(i);
+  381 |       const isChecked = await input.isChecked();
+  382 |       if (!isChecked) {
+  383 |         const card = input.locator('xpath=..');
+  384 |         await card.scrollIntoViewIfNeeded();
+  385 |         await card.click();
+  386 |         Logger.success(`Selected next available day`);
+  387 |         break;
+  388 |       }
+  389 |     }
+  390 |   }
+  391 |
+  392 |   async selectFirstAvailableTimeSlot() {
+  393 |     const timeSlots = this.page.locator('label >> input[name="timeSlot"]');
+  394 |     const count = await timeSlots.count();
+  395 |
+  396 |     for (let i = 0; i < count; i++) {
+  397 |       const slot = timeSlots.nth(i);
+  398 |       const isDisabled = await slot.isDisabled();
+  399 |       if (!isDisabled) {
+  400 |         const card = slot.locator('xpath=..');
+  401 |         await card.scrollIntoViewIfNeeded();
+  402 |         await card.click();
+  403 |         Logger.success(`Selected available time slot`);
+  404 |         return;
+  405 |       }
+  406 |     }
+  407 |
+  408 |     throw new Error('❌ No available time slots found.');
+  409 |   }
+  410 |
+  411 |   async bookNowButtonShouldBeEnabled() {
+  412 |     const bookButton = this.page.getByRole('button', { name: 'BOOK NOW' });
+  413 |     await expect(bookButton).toBeEnabled({ timeout: 5000 });
+  414 |     Logger.success(`'BOOK NOW' button is enabled`);
+  415 |     await bookButton.click();
+  416 |     await this.page.waitForTimeout(2000);
+  417 |   }
+  418 |
+  419 |   async continueToGoGoMotor() {
+  420 |     Logger.info('Clicking Continue to GoGo Motor button');
+  421 |     const continueBtn = this.continuetoGoGobutton();
+  422 |     await continueBtn.waitFor({ state: 'visible', timeout: 10000 });
+  423 |     await continueBtn.click();
+  424 |     Logger.success('Continue to GoGo Motor button clicked successfully');
+  425 |   }
+  426 |
+  427 |   async verifyHeadingText() {
+  428 |     Logger.info('Verifying main heading text');
+  429 |     await expect(this.heading()).toBeVisible();
+  430 |     await expect(this.heading()).toHaveText('Tint your car to');
+  431 |   }
+  432 |
+  433 |   async verifyAnimatedTextExists() {
+  434 |     Logger.info('Checking at least one visible animated benefit');
+  435 |
+  436 |     // Look for any span with class=block that is visible (currently shown text)
+  437 |     const visibleText = this.page.locator('span.block');
+  438 |     await expect(visibleText).toBeVisible();
+  439 |
+  440 |     const text = await visibleText.textContent();
+  441 |     Logger.info(`Visible animated text found: "${text?.trim()}"`);
+  442 |   }
+  443 |
+  444 |
+  445 |
+  446 |   async verifyStartsFromPrice(expectedPrice: string) {
+  447 |     Logger.info(`Validating "Starts from" price: ₹${expectedPrice}`);
+  448 |     await expect(this.priceText()).toBeVisible();
+  449 |     await expect(this.priceText()).toHaveText(expectedPrice);
+  450 |   }
+  451 |
+  452 |   async verifyTintMyCarCTA() {
+  453 |     Logger.info('Verifying "Tint My Car" CTA button');
+  454 |     await expect(this.tintMyCarButton()).toBeVisible();
+  455 |     await expect(this.tintMyCarButton()).toBeEnabled();
+  456 |   }
+  457 |
+  458 |   async verifyHeroCarImageVisibleOnDesktop() {
+  459 |     Logger.info('Verifying hero car image visibility on desktop');
+  460 |
+  461 |     // Ensure it's only visible on desktop (not mobile)
+  462 |     const viewport = this.page.viewportSize();
+  463 |     if (viewport && viewport.width >= 768) {
+  464 |       await expect(this.heroCarImage()).toBeVisible();
+  465 |       Logger.info('Hero car image is visible on desktop');
+  466 |     } else {
+  467 |       Logger.info('Skipping image check since viewport is not desktop');
+  468 |     }
+  469 |   }
+  470 |
+  471 |
+  472 |   async verifyGogoPromiseSection() {
+  473 |     Logger.info('Verifying "GoGo Motor\'s promise" section');
+  474 |
+  475 |     // Heading should be visible
+> 476 |     await expect(this.gogoPromiseHeading()).toBeVisible();
+      |                                             ^ Error: Timed out 45000ms waiting for expect(locator).toBeVisible()
+  477 |
+  478 |     // Tags should be visible and count should match expected
+  479 |     const expectedTags = ['Trusted Expertise', 'Top-Quality Materials', 'Customer First'];
+  480 |
+  481 |     for (const tagText of expectedTags) {
+  482 |       const tag = this.page.getByText(tagText, { exact: true });
+  483 |       await expect(tag).toBeVisible();
+  484 |       Logger.info(`Verified tag: ${tagText}`);
+  485 |     }
+  486 |
+  487 |     // Or: check total count is 3
+  488 |     await expect(this.gogoPromiseTags()).toHaveCount(3);
+  489 |   }
+  490 |
+  491 |   
+  492 |   async verifyTintFilmSpecsSection() {
+  493 |     Logger.info('Verifying tint film specs section');
+  494 |
+  495 |     await expect(this.glareReductionHeading()).toBeVisible();
+  496 |     Logger.info('Verified glare reduction heading');
+  497 |
+  498 |     await expect(this.tintDesc()).toBeVisible();
+  499 |     Logger.info('Verified tint description text');
+  500 |
+  501 |     await expect(this.performancePoints()).toHaveCount(7);
+  502 |     Logger.info('Verified all 8 performance metric lines');
+  503 |
+  504 |     await expect(this.tintShadeImages()).toHaveCount(5);
+  505 |     Logger.info('Verified 5 tint shade images');
+  506 |
+  507 |     await expect(this.filmSpecsFooter()).toBeVisible();
+  508 |     Logger.info('Verified footer line with MIL, UV, IR specs');
+  509 |   }
+  510 |   async verifyPerfectFitSection() {
+  511 |     Logger.info('Validating "Perfect Fit, Every Time" section heading');
+  512 |     await expect(this.perfectFitHeading()).toBeVisible();
+  513 |
+  514 |     Logger.info('Validating presence of all 3 step titles');
+  515 |     await expect(this.stepTitles()).toHaveCount(3);
+  516 |
+  517 |     Logger.info('Validating presence of all 3 step descriptions');
+  518 |     await expect(this.stepDescriptions()).toHaveCount(3);
+  519 |
+  520 |   }
+  521 |
+  522 |   async verifyHeroVideoIsVisible() {
+  523 |     Logger.info('Validating presence of hero video element');
+  524 |     await expect(this.heroVideo()).toBeVisible();
+  525 |     Logger.info('Hero video is visible');
+  526 |   }
+  527 |
+  528 |   async verifyBenefitsOfTintingSection() {
+  529 |     Logger.info('Validating "Benefits of tinting" heading');
+  530 |     await expect(this.benefitsHeading()).toBeVisible();
+  531 |
+  532 |     Logger.info('Validating "Benefits of tinting" description');
+  533 |     await expect(this.benefitsDescription()).toBeVisible();
+  534 |
+  535 |     Logger.info('"Benefits of tinting" section validated successfully');
+  536 |   }
+  537 |
+  538 | }
+```

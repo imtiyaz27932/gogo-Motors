@@ -1,0 +1,1 @@
+⚠️ [WARN] Test finished with status: interrupted - Validate hero section content and CTA button

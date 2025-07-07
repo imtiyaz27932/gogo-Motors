@@ -1,0 +1,11 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+ℹ️ [INFO] Navigating to Car Tinting page
+✅ [SUCCESS] Car Tinting page opened successfully
+ℹ️ [INFO] Validating "Benefits of tinting" heading
+ℹ️ [INFO] Validating "Benefits of tinting" description
+✅ [SUCCESS] Test passed: Validate Tinting Benefits section
+ℹ️ [INFO] "Benefits of tinting" section validated successfully
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

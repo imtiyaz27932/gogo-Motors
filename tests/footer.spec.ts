@@ -34,7 +34,7 @@ test.describe('Footer Test Cases', () => {
         await footerPage.verifyAppLinks();
     });
 
-    test.fixme("Verify footer links are present and clickable", async () => {
+    test("Verify footer links are present and clickable", async () => {
         Logger.info('Checking Company')
         await footerPage.validateAndClickFooterLinks()
 

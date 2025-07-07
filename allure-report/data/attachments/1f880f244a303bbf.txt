@@ -1,0 +1,47 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects
+ℹ️ [INFO] Navigating to Car Tinting page
+✅ [SUCCESS] Car Tinting page opened successfully
+ℹ️ [INFO] Clicking on Tint My Car button
+✅ [SUCCESS] Navigated to Tinting Simulator
+ℹ️ [INFO] Clicking on SUV car type
+✅ [SUCCESS] SUV car type selected
+ℹ️ [INFO] Selecting glass options and visibility percentages
+ℹ️ [INFO] Front side glass visibility selected
+ℹ️ [INFO] Selecting back side glass visibility
+ℹ️ [INFO] Back side glass visibility selected
+ℹ️ [INFO] Selecting rear glass visibility
+ℹ️ [INFO] Rear glass visibility selected
+ℹ️ [INFO] Selecting windshield glass visibility
+✅ [SUCCESS] Glass options and visibility percentages selected successfully
+ℹ️ [INFO] Validating payable amount is: 800.00
+✅ [SUCCESS] Amount payable is correctly displayed as 800.00
+ℹ️ [INFO] Clicking the Checkout button
+✅ [SUCCESS] Checkout button clicked successfully
+ℹ️ [INFO] Clicking the Proceed to Pay button
+✅ [SUCCESS] Proceed to Pay button clicked successfully
+ℹ️ [INFO] Clicking the Continue button
+✅ [SUCCESS] Continue button clicked successfully
+✅ [SUCCESS] Selected next available day
+✅ [SUCCESS] Selected available time slot
+✅ [SUCCESS] 'BOOK NOW' button is enabled
+ℹ️ [INFO] Clicking the Proceed to Pay button
+✅ [SUCCESS] Proceed to Pay button clicked successfully
+ℹ️ [INFO] Entering card details
+ℹ️ [INFO] Filling test card details inside iframe fields...
+ℹ️ [INFO] Filled card number.
+ℹ️ [INFO] Filled name on card.
+ℹ️ [INFO] Filled expiration date.
+ℹ️ [INFO] Filled security code.
+ℹ️ [INFO] Filling address details...
+ℹ️ [INFO] Filled address.
+ℹ️ [INFO] Filled city.
+ℹ️ [INFO] Filled postal code.
+ℹ️ [INFO] All card and address details filled successfully.
+✅ [SUCCESS] Roadside Assistance purchased successfully
+ℹ️ [INFO] Clicking Continue to GoGo Motor button
+✅ [SUCCESS] Continue to GoGo Motor button clicked successfully
+ℹ️ [INFO] Selecting glass options and visibility percentages
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

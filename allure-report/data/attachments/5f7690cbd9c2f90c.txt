@@ -1,0 +1,14 @@
+ℹ️ [INFO] --- Starting  test suite ---
+✅ Current URL: https://uat.gogomotor.com/en
+ℹ️ [INFO] ➡ Initializing MOBILE page objects and navigating to the buy used cars section
+ℹ️ [INFO] Hovering over the "Buy & Sell Used Cars" tab...
+✅ [SUCCESS] Hovered on "Buy & Sell Used Cars" tab successfully.
+ℹ️ [INFO] ➡ Clicking on Sell With Fastlane link
+✅ [SUCCESS] ✅ Clicked on Sell With Fastlane link
+✅ [SUCCESS] ✅ Navigated to Sell With Fastlane page
+ℹ️ [INFO] Validating the Heading of the Page
+ℹ️ [INFO] Heading text found: "Sell Your Used Car in Saudi Arabia"
+✅ [SUCCESS] Heading validated successfully
+✅ [SUCCESS] Test passed: Verify the Heading of the page
+--------------------------------------------
+✅ [SUCCESS] --- Finished test suite ---

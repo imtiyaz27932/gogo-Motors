@@ -25,6 +25,7 @@ export class CarBudgetingPage {
 
 
     async setEMI(value: number) {
+        await this.page.mouse.wheel(0, 3000)
         await this.emiInput.fill(value.toString());
         const enteredValue = await this.emiInput.inputValue();
         expect(enteredValue.replace(/,/g, '')).toBe(value.toString());
@@ -33,6 +34,7 @@ export class CarBudgetingPage {
 
     async increaseEMI() {
         await this.ensurePageIsScrolled()
+        await this.page.mouse.wheel(0, 4000)
         await this.incrementButton.click();
 
     }
@@ -40,6 +42,7 @@ export class CarBudgetingPage {
 
     async selectDurationWithDelay() {
         await this.ensurePageIsScrolled()
+        await this.page.mouse.wheel(0, 4000)
         const durations = this.page.locator('div[class*="w-[54px]"]');
         const count = await durations.count();
         console.log(`Total duration options: ${count}`);

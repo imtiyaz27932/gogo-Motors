@@ -17,9 +17,9 @@ export class DiscountBudget {
     private tab5 = () => this.page.getByRole('tab', { name: ' 2,00,000 -' });
     private tab6 = () => this.page.getByRole('tab', { name: ' 2,50,000+' });
     private discountCarslink = () => this.page.getByRole('link', { name: 'View All Discounted Cars' })
-    private cardeatilsview =()=> this. page.locator('h3[title="Adamp Motors SUNNY12"]')
+    private cardeatilsview = () => this.page.locator('h3[title="Adamp Motors SUNNY12"]')
 
-   
+
     private async ensurePageIsScrolled() {
         await scrollSmoothly(this.page, 2000, 1200, 500);
     }
@@ -27,11 +27,11 @@ export class DiscountBudget {
 
     async discountHeadingVisiblity() {
         await this.ensurePageIsScrolled();
-        await this.page.waitForTimeout(500); 
+        await this.page.waitForTimeout(500);
 
         await expect(this.discountHeadingText()).toBeVisible();
         await this.page.waitForTimeout(2000)
-        await this.page.waitForLoadState('networkidle');
+        //await this.page.waitForLoadState('networkidle');
     }
 
 
@@ -61,17 +61,19 @@ export class DiscountBudget {
     }
     async ClickingOnDiscountCarsLink() {
         await this.ensurePageIsScrolled()
+        await this.page.mouse.wheel(0, 4000)
         await this.discountCarslink().click()
-        await this.page.waitForLoadState('networkidle')
-        
+        await this.page.waitForTimeout(3000)
+
 
     }
 
     async clickFirstCarView() {
         await this.ensurePageIsScrolled();
+        await this.page.mouse.wheel(0, 4000)
         await this.page.waitForTimeout(100)
         await this.cardeatilsview().click()
         await this.page.waitForLoadState('domcontentloaded');
-        
+
     }
 }

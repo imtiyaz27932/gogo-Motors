@@ -28,7 +28,8 @@ export default defineConfig({
     ['./custom-table-reporter.ts'],
     ['list'],
     ['json', { outputFile: 'test-results.json' }],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }]
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['allure-playwright'],
   ],
   use: {
     headless: true,

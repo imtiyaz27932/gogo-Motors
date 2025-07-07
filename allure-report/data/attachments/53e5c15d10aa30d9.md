@@ -1,0 +1,272 @@
+# Test info
+
+- Name: Car Tinting - Mobile Web >> Validate Perfect Fit section and Tinting Steps
+- Location: D:\gogomotor\tests\CarTinting\windowTinting.spec.ts:49:9
+
+# Error details
+
+```
+Error: Timed out 45000ms waiting for expect(locator).toHaveCount(expected)
+
+Locator: locator('p').filter({ hasText: /Clean & Prep|Cut & Shape|Apply & Smooth/ })
+Expected: 3
+Received: 6
+Call log:
+  - expect.toHaveCount with timeout 45000ms
+  - waiting for locator('p').filter({ hasText: /Clean & Prep|Cut & Shape|Apply & Smooth/ })
+    48 × locator resolved to 6 elements
+       - unexpected value "6"
+
+    at CarTinting.verifyPerfectFitSection (D:\gogomotor\pages\CarTinting\tinting.ts:497:37)
+    at D:\gogomotor\tests\CarTinting\windowTinting.spec.ts:50:9
+```
+
+# Page snapshot
+
+```yaml
+- banner:
+  - link "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia":
+    - /url: /en
+    - img "GoGo Motor - Buy and Sell New & Used Cars in Saudi Arabia"
+  - button "Riyadh":
+    - img
+    - text: Riyadh
+    - img
+  - button "1":
+    - img
+    - text: "1"
+  - text: Hello, Customer Firstname
+  - button "open profile menu":
+    - img
+  - button "Switch to Arabic":
+    - img "Arabic icon"
+    - text: عربى
+  - navigation "Global": New Cars Buy & Sell Used Cars Deals Services
+- main:
+  - img "hero"
+  - img "hero car"
+  - img "hero car glass"
+  - img "hero"
+  - img "hero"
+  - paragraph: Tint your car to
+  - text: Maintain privacy Starts from
+  - img
+  - paragraph: "800"
+  - button "Tint My Car"
+  - img "Get 5 Years Warranty"
+  - text: Get 5 Years Warranty
+  - img "Advanced Heat Rejection"
+  - text: Advanced Heat Rejection
+  - img "Powered by AutoTech"
+  - text: Powered by AutoTech
+  - img "flower-left"
+  - paragraph: GoGo Motor's promise
+  - img "flower-right"
+  - img
+  - paragraph: Trusted Expertise
+  - img
+  - paragraph: Top-Quality Materials
+  - img
+  - paragraph: Customer First
+  - paragraph: Tint your car in 3 easy steps
+  - img
+  - paragraph: Configure tint choice
+  - paragraph: Blocks up to 60% of solar energy to keep your car cool.
+  - img
+  - paragraph: Make the Payment and book appointment.
+  - paragraph: A trusted dealer picks up your vehicle and applies the tint professionally.
+  - img
+  - paragraph: Get your car tinted from authorised centre
+  - paragraph: Your car is returned with a flawless tint, ready to go.
+  - img "glare image"
+  - img "shade-1"
+  - paragraph: 75 glare reduction
+  - paragraph: We use advanced ceramic films with precision-fit application and lasting performance
+  - paragraph: 16% Solar energy transmittance
+  - paragraph: 18% Visible light transmittance
+  - paragraph: 0.44 Shading coefficient
+  - paragraph: 66% Solar energy absorbance
+  - paragraph: 16% Solar energy transmittance
+  - paragraph: 16% Visible light reflectance
+  - paragraph: 62% Total solar energy rejection
+  - paragraph: Autotek IR 35
+  - img "Shade 1"
+  - img "Shade 2"
+  - img "Shade 3"
+  - img "Shade 4"
+  - img "Shade 5"
+  - paragraph: 2 MIL Thickness, 99.58% Ultraviolet reject, 86% Infrared radiation
+  - text: Your browser does not support the video tag.
+  - paragraph: Perfect Fit, Every Time
+  - paragraph: We use advanced tools and computer-cut technology to ensure each tint film fits your car’s windows perfectly—delivering a smooth, bubble-free, factory-finish look with no gaps or imperfections.
+  - paragraph: Tint your car in 4 easy steps
+  - img "brush"
+  - paragraph: Clean & Prep
+  - paragraph: Clean windows to remove dust and debris
+  - img "brush"
+  - paragraph: Cut & Shape
+  - paragraph: Trim film to fit and heat-shrink if needed
+  - img "brush"
+  - paragraph: Apply & Smooth
+  - paragraph: Spray solution, apply film, and smooth out bubbles
+  - button "Tint my Car"
+  - paragraph: Benefits of tinting
+  - paragraph: Protect your car from expensive surprises with GoGo ProShield.
+  - img
+  - paragraph: Privacy & Security
+  - paragraph: Keep prying eyes away and protect your valuables
+  - img
+  - paragraph: Improved Comfort
+  - paragraph: Reduce heat, keeping your car cooler and more pleasant inside
+  - img
+  - paragraph: UV Ray’s protection
+  - paragraph: Blocks harmful UV rays that can damage skin and car interiors.
+  - img
+  - paragraph: Better visibility
+  - paragraph: Minimises sun and headlight glare for better visibility.
+  - heading "FAQ's" [level=2]
+  - paragraph: Got questions? We have Answers
+  - button "How long does it take to tint windows on my vehicle?":
+    - text: How long does it take to tint windows on my vehicle?
+    - img
+  - paragraph: "Vehicles vary from one to the next. The average installation time is about an hour. Some factors that may play a part in the time involved are: what kind of vehicle it is; the number of installers working on the vehicle; if there are any unforeseen scenarios that come up, such as a rear deck lid needs to come out; or If old tint removal is involved."
+  - button "Why do I see bubbles right after install?":
+    - text: Why do I see bubbles right after install?
+    - img
+  - paragraph: The moisture we use for installation can remain between the film and windows for up to 2 to 3 weeks and sometimes longer in colder climates. Moisture or condensation comes in the forms of haziness and water bubbles or pockets. They clear up and the moisture simply evaporates. Never try to push around any of these water pockets, for this can create air pockets which don’t go away on their own
+- region "Notifications Alt+T"
+- alert
+```
+
+# Test source
+
+```ts
+  397 |     await this.page.waitForTimeout(2000);
+  398 |   }
+  399 |
+  400 |   async continueToGoGoMotor() {
+  401 |     Logger.info('Clicking Continue to GoGo Motor button');
+  402 |     const continueBtn = this.continuetoGoGobutton();
+  403 |     await continueBtn.waitFor({ state: 'visible', timeout: 10000 });
+  404 |     await continueBtn.click();
+  405 |     Logger.success('Continue to GoGo Motor button clicked successfully');
+  406 |   }
+  407 |
+  408 |   async verifyHeadingText() {
+  409 |     Logger.info('Verifying main heading text');
+  410 |     await expect(this.heading()).toBeVisible();
+  411 |     await expect(this.heading()).toHaveText('Tint your car to');
+  412 |   }
+  413 |
+  414 |   async verifyAnimatedTextExists() {
+  415 |     Logger.info('Checking at least one visible animated benefit');
+  416 |
+  417 |     // Look for any span with class=block that is visible (currently shown text)
+  418 |     const visibleText = this.page.locator('span.block');
+  419 |     await expect(visibleText).toBeVisible();
+  420 |
+  421 |     const text = await visibleText.textContent();
+  422 |     Logger.info(`Visible animated text found: "${text?.trim()}"`);
+  423 |   }
+  424 |
+  425 |
+  426 |
+  427 |   async verifyStartsFromPrice(expectedPrice: string) {
+  428 |     Logger.info(`Validating "Starts from" price: ₹${expectedPrice}`);
+  429 |     await expect(this.priceText()).toBeVisible();
+  430 |     await expect(this.priceText()).toHaveText(expectedPrice);
+  431 |   }
+  432 |
+  433 |   async verifyTintMyCarCTA() {
+  434 |     Logger.info('Verifying "Tint My Car" CTA button');
+  435 |     await expect(this.tintMyCarButton()).toBeVisible();
+  436 |     await expect(this.tintMyCarButton()).toBeEnabled();
+  437 |   }
+  438 |
+  439 |   async verifyHeroCarImageVisibleOnDesktop() {
+  440 |     Logger.info('Verifying hero car image visibility on desktop');
+  441 |
+  442 |     // Ensure it's only visible on desktop (not mobile)
+  443 |     const viewport = this.page.viewportSize();
+  444 |     if (viewport && viewport.width >= 768) {
+  445 |       await expect(this.heroCarImage()).toBeVisible();
+  446 |       Logger.info('Hero car image is visible on desktop');
+  447 |     } else {
+  448 |       Logger.info('Skipping image check since viewport is not desktop');
+  449 |     }
+  450 |   }
+  451 |
+  452 |
+  453 |   async verifyGogoPromiseSection() {
+  454 |     Logger.info('Verifying "GoGo Motor\'s promise" section');
+  455 |
+  456 |     // Heading should be visible
+  457 |     await expect(this.gogoPromiseHeading()).toBeVisible();
+  458 |
+  459 |     // Tags should be visible and count should match expected
+  460 |     const expectedTags = ['Trusted Expertise', 'Top-Quality Materials', 'Customer First'];
+  461 |
+  462 |     for (const tagText of expectedTags) {
+  463 |       const tag = this.page.getByText(tagText, { exact: true });
+  464 |       await expect(tag).toBeVisible();
+  465 |       Logger.info(`Verified tag: ${tagText}`);
+  466 |     }
+  467 |
+  468 |     // Or: check total count is 3
+  469 |     await expect(this.gogoPromiseTags()).toHaveCount(3);
+  470 |   }
+  471 |
+  472 |   
+  473 |   async verifyTintFilmSpecsSection() {
+  474 |     Logger.info('Verifying tint film specs section');
+  475 |
+  476 |     await expect(this.glareReductionHeading()).toBeVisible();
+  477 |     Logger.info('Verified glare reduction heading');
+  478 |
+  479 |     await expect(this.tintDesc()).toBeVisible();
+  480 |     Logger.info('Verified tint description text');
+  481 |
+  482 |     await expect(this.performancePoints()).toHaveCount(7);
+  483 |     Logger.info('Verified all 8 performance metric lines');
+  484 |
+  485 |     await expect(this.tintShadeImages()).toHaveCount(5);
+  486 |     Logger.info('Verified 5 tint shade images');
+  487 |
+  488 |     await expect(this.filmSpecsFooter()).toBeVisible();
+  489 |     Logger.info('Verified footer line with MIL, UV, IR specs');
+  490 |   }
+  491 |
+  492 |   async verifyPerfectFitSection() {
+  493 |     Logger.info('Validating "Perfect Fit, Every Time" section heading');
+  494 |     await expect(this.perfectFitSection()).toBeVisible();
+  495 |
+  496 |     Logger.info('Validating presence of all 3 step titles');
+> 497 |     await expect(this.stepTitles()).toHaveCount(3);
+      |                                     ^ Error: Timed out 45000ms waiting for expect(locator).toHaveCount(expected)
+  498 |
+  499 |     Logger.info('Validating presence of all 3 step descriptions');
+  500 |     await expect(this.stepDescriptions()).toHaveCount(3);
+  501 |
+  502 |     Logger.info('Validating CTA button');
+  503 |     await expect(this.tintMyCarCTA()).toBeVisible();
+  504 |   }
+  505 |
+  506 |
+  507 |   async verifyHeroVideoIsVisible() {
+  508 |     Logger.info('Validating presence of hero video element');
+  509 |     await expect(this.heroVideo()).toBeVisible();
+  510 |     Logger.info('Hero video is visible');
+  511 |   }
+  512 |
+  513 |   async verifyBenefitsOfTintingSection() {
+  514 |     Logger.info('Validating "Benefits of tinting" heading');
+  515 |     await expect(this.benefitsHeading()).toBeVisible();
+  516 |
+  517 |     Logger.info('Validating "Benefits of tinting" description');
+  518 |     await expect(this.benefitsDescription()).toBeVisible();
+  519 |
+  520 |     Logger.info('"Benefits of tinting" section validated successfully');
+  521 |   }
+  522 |
+  523 | }
+```
